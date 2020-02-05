@@ -1,0 +1,246 @@
+@import "./variables";
+
+.primary {
+  color: $primary !important;
+}
+.primary-50 {
+  color: $primary-50 !important;
+}
+.primary-15 {
+  color: $primary-15 !important;
+}
+.darker {
+  color: $darker !important;
+}
+.dark {
+  color: $dark !important;
+}
+.dark-80 {
+  color: $dark-80 !important;
+}
+.dark-20 {
+  color: $dark-20 !important;
+}
+.light {
+  color: $light !important;
+}
+.light-50 {
+  color: $light-50 !important;
+}
+.light-20 {
+  color: $light-20 !important;
+}
+.light-05 {
+  color: $light-05 !important;
+}
+
+.bg-primary {
+  background-color: $primary;
+  h1, h2, h3, h4, h5, h6 {
+    color: $light,
+  }
+  .bottom-line:after {
+    border-bottom: 2px solid $light;
+  }
+}
+.bg-primary-50 {
+  background-color: $primary-50;
+}
+.bg-primary-15 {
+  background-color: $primary-15;
+}
+.bg-darker {
+  background-color: $darker;
+  h1, h2, h3, h4, h5, h6 {
+    color: $light,
+  }
+}
+.bg-dark {
+  background-color: $dark;
+  h1, h2, h3, h4, h5, h6 {
+    color: $light,
+  }
+  .bottom-line:after {
+    border-bottom: 2px solid $light;
+  }
+}
+.bg-dark-80 {
+  background-color: $dark-80;
+}
+.bg-dark-20 {
+  background-color: $dark-20;
+}
+.bg-light {
+  background-color: $light;
+}
+.bg-lighter {
+  background-color: white !important;
+}
+.bg-light-80 {
+  background-color: $light-80;
+}
+.bg-light-50 {
+  background-color: $light-50;
+}
+.bg-light-20 {
+  background-color: $light-20;
+}
+.bg-light-05 {
+  background-color: $light-05;
+}
+
+.br-primary {
+  border-color: $primary !important;
+}
+.br-primary-50 {
+  border-color: $primary-50 !important;
+}
+.br-primary-15 {
+  border-color: $primary-15 !important;
+}
+.br-darker {
+  border-color: $darker !important;
+}
+.br-dark {
+  border-color: $dark !important;
+}
+.br-dark-80 {
+  border-color: $dark-80 !important;
+}
+.br-dark-20 {
+  border-color: $dark-20 !important;
+}
+.br-light {
+  border-color: $light !important;
+}
+.br-light-50 {
+  border-color: $light-50 !important;
+}
+.br-light-20 {
+  border-color: $light-20 !important;
+}
+.br-light-05 {
+  border-color: $light-05 !important;
+}
+
+// // Gradients
+// .g0 {
+// 	background: $color_downriver_approx;
+// 	background: $g0;
+// 	filter: progid:dximagetransform.microsoft.gradient(startcolorstr='$color_downriver_approx', endcolorstr='$color_black_pearl_approx',gradienttype=0 );
+// }
+// .g1 {
+// 	background: $color_regal_blue_approx;
+// 	background: $g1;
+// 	filter: progid:dximagetransform.microsoft.gradient(startcolorstr='$color_regal_blue_approx', endcolorstr='$color_black_pearl_approx',gradienttype=0 );
+// }
+// .g2 {
+// 	background: $color_regal_blue_approx;
+// 	background: $g2;
+// 	filter: progid:dximagetransform.microsoft.gradient(startcolorstr='$color_regal_blue_approx', endcolorstr='$color_black_pearl_approx',gradienttype=0 );
+// }
+// .g3 {
+// 	background: $color_regal_blue_approx;
+// 	background: $g3;
+// 	filter: progid:dximagetransform.microsoft.gradient(startcolorstr='$color_regal_blue_approx', endcolorstr='$color_midnight_approx',gradienttype=0 );
+// }
+// .g4 {
+// 	background: $color_regal_blue_approx;
+// 	background: $g4;
+// 	filter: progid:dximagetransform.microsoft.gradient(startcolorstr='$color_regal_blue_approx', endcolorstr='$color_midnight_approx',gradienttype=0 );
+// }
+// .g5 {
+// 	background: $color_bahama_blue_approx;
+// 	background: $g5;
+// 	filter: progid:dximagetransform.microsoft.gradient(startcolorstr='$color_bahama_blue_approx', endcolorstr='$color_midnight_approx',gradienttype=0 );
+// }
+// .g6 {
+// 	background: $color_allports_approx;
+// 	background: $g6;
+// 	filter: progid:dximagetransform.microsoft.gradient(startcolorstr='$color_allports_approx', endcolorstr='$color_blue_whale_approx',gradienttype=0 );
+// }
+// .g7 {
+// 	background: $color_pacific_blue_approx;
+// 	background: $g7;
+// 	filter: progid:dximagetransform.microsoft.gradient(startcolorstr='$color_pacific_blue_approx', endcolorstr='$color_regal_blue_approx',gradienttype=0 );
+// }
+// .g8 {
+// 	background: $color_downy_approx;
+// 	background: $g8;
+// 	filter: progid:dximagetransform.microsoft.gradient(startcolorstr='$color_downy_approx', endcolorstr='$color_deep_cerulean_approx',gradienttype=0 );
+// }
+// .g9 {
+// 	background: $color_fall_green_approx;
+// 	background: $g9;
+// 	filter: progid:dximagetransform.microsoft.gradient(startcolorstr='$color_fall_green_approx', endcolorstr='$color_viking_approx',gradienttype=0 );
+// }
+// .g10 {
+// 	background: $color_mustard_approx;
+// 	background: $g10;
+// 	filter: progid:dximagetransform.microsoft.gradient(startcolorstr='$color_mustard_approx', endcolorstr='$color_chinook_approx',gradienttype=0 );
+// }
+// .g11 {
+// 	background: $color_saffron_mango_approx;
+// 	background: $g11;
+// 	filter: progid:dximagetransform.microsoft.gradient(startcolorstr='$color_saffron_mango_approx', endcolorstr='$color_primrose_approx',gradienttype=0 );
+// }
+// .g12 {
+// 	background: $color_rajah_approx;
+// 	background: $g12;
+// 	filter: progid:dximagetransform.microsoft.gradient(startcolorstr='$color_rajah_approx', endcolorstr='$color_portica_approx',gradienttype=0 );
+// }
+// .g13 {
+// 	background: $color_tan_hide_approx;
+// 	background: $g13;
+// 	filter: progid:dximagetransform.microsoft.gradient(startcolorstr='$color_tan_hide_approx', endcolorstr='$color_portica_approx',gradienttype=0 );
+// }
+// .g14 {
+// 	background: $color_tan_hide_approx;
+// 	background: $g14;
+// 	filter: progid:dximagetransform.microsoft.gradient(startcolorstr='$color_tan_hide_approx', endcolorstr='$color_portica_approx',gradienttype=0 );
+// }
+// .g15 {
+// 	background: $color_jaffa_approx;
+// 	background: $g15;
+// 	filter: progid:dximagetransform.microsoft.gradient(startcolorstr='$color_jaffa_approx', endcolorstr='$color_goldenrod_approx',gradienttype=0 );
+// }
+// .g16 {
+// 	background: $color_froly_approx;
+// 	background: $g16;
+// 	filter: progid:dximagetransform.microsoft.gradient(startcolorstr='$color_froly_approx', endcolorstr='$color_tan_hide_approx',gradienttype=0 );
+// }
+// .g17 {
+// 	background: $color_mulberry_approx;
+// 	background: $g17;
+// 	filter: progid:dximagetransform.microsoft.gradient(startcolorstr='$color_mulberry_approx', endcolorstr='$color_salmon_approx',gradienttype=0 );
+// }
+// .g18 {
+// 	background: $color_eminence_approx;
+// 	background: $g18;
+// 	filter: progid:dximagetransform.microsoft.gradient(startcolorstr='$color_eminence_approx', endcolorstr='$color_charm_approx',gradienttype=0 );
+// }
+// .g19 {
+// 	background: $color_meteorite_approx;
+// 	background: $g19;
+// 	filter: progid:dximagetransform.microsoft.gradient(startcolorstr='$color_meteorite_approx', endcolorstr='$color_eminence_approx',gradienttype=0 );
+// }
+// .g20 {
+// 	background: $color_lucky_point_approx;
+// 	background: $g20;
+// 	filter: progid:dximagetransform.microsoft.gradient(startcolorstr='$color_lucky_point_approx', endcolorstr='$color_meteorite_approx',gradienttype=0 );
+// }
+// .g21 {
+// 	background: $color_biscay_approx;
+// 	background: $g21;
+// 	filter: progid:dximagetransform.microsoft.gradient(startcolorstr='$color_biscay_approx', endcolorstr='$color_meteorite_approx',gradienttype=0 );
+// }
+// .g22 {
+// 	background: $color_deep_cove_approx;
+// 	background: $g22;
+// 	filter: progid:dximagetransform.microsoft.gradient(startcolorstr='$color_deep_cove_approx', endcolorstr='$color_astronaut_approx',gradienttype=0 );
+// }
+// .g23 {
+// 	background: $color_deep_cove_approx;
+// 	background: $g23;
+// 	filter: progid:dximagetransform.microsoft.gradient(startcolorstr='$color_deep_cove_approx', endcolorstr='$color_downriver_approx',gradienttype=0 );
+// }

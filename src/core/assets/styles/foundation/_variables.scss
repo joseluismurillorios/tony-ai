@@ -1,0 +1,133 @@
+// Primary
+// $color_one: rgb(61,90,254);
+// $color_two: rgb(83,109,254);
+// $color_three: rgb(48,79,254);
+// $color_four: rgb(0,191,165);
+
+$color_one: #2CB8A5;
+$color_two: #61CABC;
+$color_three: #95DBD2;
+$color_four: #A18CD1;
+
+$primary: $color_one;
+$secondary: $color_four;
+// Unused
+$primary-80: rgba(149, 219, 210, 0.8);
+$primary-70: rgba(149, 219, 210, 0.7);
+$primary-50: rgba(149, 219, 210, 0.5);
+$primary-40: rgba(149, 219, 210, 0.4);
+$primary-15: rgba(149, 219, 210, 0.15);
+
+//
+$darker: rgba(27, 27, 27, 1);
+$dark: rgba(33, 33, 33, 1);
+$dark-80: rgba(33, 33, 33, 0.8);
+$dark-20: rgba(33, 33, 33, 0.2);
+$light: rgba(255, 255, 255, 1);
+$light-80: rgba(255, 255, 255, 0.80);
+$light-50: rgba(255, 255, 255, 0.5);
+$light-20: rgba(255, 255, 255, 0.2);
+$light-05: rgba(255, 255, 255, 0.05);
+
+$danger: #dc3545;
+$success: #28a745;
+
+
+// $color_downriver_approx: #012459;
+// $color_black_pearl_approx: #001322;
+
+// $color_regal_blue_approx: #003972;
+// $color_midnight_approx: #00182b;
+
+// $color_bahama_blue_approx: #016792;
+// $color_allports_approx: #07729f;
+
+// $color_blue_whale_approx: #042c47;
+// $color_pacific_blue_approx: #12a1c0;
+
+// $color_downy_approx: #74d4cc;
+// $color_deep_cerulean_approx: #1386a6;
+// $color_fall_green_approx: #efeebc;
+
+// $color_viking_approx: #61d0cf;
+// $color_mustard_approx: #fee154;
+
+// $color_chinook_approx: #a3dec6;
+// $color_saffron_mango_approx: #fdc352;
+
+// $color_primrose_approx: #e8ed92;
+// $color_rajah_approx: #ffac6f;
+
+// $color_portica_approx: #ffe467;
+// $color_tan_hide_approx: #fda65a;
+
+// $color_jaffa_approx: #f18448;
+// $color_goldenrod_approx: #ffd364;
+
+// $color_froly_approx: #f06b7e;
+// $color_mulberry_approx: #ca5a92;
+
+// $color_salmon_approx: #f4896b;
+// $color_eminence_approx: #5b2c83;
+
+// $color_charm_approx: #d1628b;
+// $color_meteorite_approx: #371a79;
+
+// $color_lucky_point_approx: #28166b;
+// $color_biscay_approx: #192861;
+
+// $color_deep_cove_approx: #040b3c;
+// $color_astronaut_approx: #233072;
+
+$f-xs: .5rem;
+$f-sm: .85rem;
+$f-bs: 1rem;
+$f-md: 1.6rem;
+$f-lg: 2.5rem;
+
+$s-xs: .75rem;
+$s-sm: 1rem;
+$s-bs: 2rem;
+$s-md: 3rem;
+$s-lg: 5rem;
+
+// Urls
+
+$grabbing: url('../images/ui/grabbing.png');
+$shop_icons: url('../images/ui/shop_icons.png');
+$portfolio_icon: url('../images/ui/portfolio_icon.png');
+$full_bg: url('../images/ui/full_bg.jpg');
+$moon: url('../images/main/moon.png');
+$earth: url('../images/main/earth.png');
+
+$chevron-down: "\e948";
+$chevron-left: "\e949";
+$chevron-right: "\e94a";
+$chevron-up: "\e94b";
+$arrow-downward: "\e944";
+$checkmark: "\e90d";
+
+// $g0: linear-gradient(to bottom, $color_downriver_approx 0,$color_black_pearl_approx 100%);
+// $g1: linear-gradient(to bottom, $color_regal_blue_approx 0,$color_black_pearl_approx 100%);
+// $g2: linear-gradient(to bottom, $color_regal_blue_approx 0,$color_black_pearl_approx 100%);
+// $g3: linear-gradient(to bottom, $color_regal_blue_approx 0,$color_midnight_approx 100%);
+// $g4: linear-gradient(to bottom, $color_regal_blue_approx 0,$color_midnight_approx 100%);
+// $g5: linear-gradient(to bottom, $color_bahama_blue_approx 0,$color_midnight_approx 100%);
+// $g6: linear-gradient(to bottom, $color_allports_approx 0,$color_blue_whale_approx 100%);
+// $g7: linear-gradient(to bottom, $color_pacific_blue_approx 0,$color_regal_blue_approx 100%);
+// $g8: linear-gradient(to bottom, $color_downy_approx 0,$color_deep_cerulean_approx 100%);
+// $g9: linear-gradient(to bottom, $color_fall_green_approx 0,$color_viking_approx 100%);
+// $g10: linear-gradient(to bottom, $color_mustard_approx 0,$color_chinook_approx 100%);
+// $g11: linear-gradient(to bottom, $color_saffron_mango_approx 0,$color_primrose_approx 100%);
+// $g12: linear-gradient(to bottom, $color_rajah_approx 0,$color_portica_approx 100%);
+// $g13: linear-gradient(to bottom, $color_tan_hide_approx 0,$color_portica_approx 100%);
+// $g14: linear-gradient(to bottom, $color_tan_hide_approx 0,$color_portica_approx 100%);
+// $g15: linear-gradient(to bottom, $color_jaffa_approx 0,$color_goldenrod_approx 100%);
+// $g16: linear-gradient(to bottom, $color_froly_approx 0,$color_tan_hide_approx 100%);
+// $g17: linear-gradient(to bottom, $color_mulberry_approx 0,$color_salmon_approx 100%);
+// $g18: linear-gradient(to bottom, $color_eminence_approx 0,$color_charm_approx 100%);
+// $g19: linear-gradient(to bottom, $color_meteorite_approx 0,$color_eminence_approx 100%);
+// $g20: linear-gradient(to bottom, $color_lucky_point_approx 0,$color_meteorite_approx 100%);
+// $g21: linear-gradient(to bottom, $color_biscay_approx 0,$color_meteorite_approx 100%);
+// $g22: linear-gradient(to bottom, $color_deep_cove_approx 0,$color_astronaut_approx 100%);
+// $g23: linear-gradient(to bottom, $color_deep_cove_approx 0,$color_downriver_approx 100%);

@@ -1,0 +1,38 @@
+.btn-animate .ripple {
+  -webkit-animation: rippleAnimation 0.65s linear;
+  animation: rippleAnimation 0.65s linear;
+}
+
+.ripple {
+  display: block;
+  position: absolute;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 100%;
+  -webkit-transform: scale(0);
+  transform: scale(0);
+}
+
+.btn-icon .ripple {
+  display: block;
+  position: absolute;
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 100%;
+  -webkit-transform: scale(0);
+  transform: scale(0);
+}
+
+@-webkit-keyframes rippleAnimation {
+  100% {
+      opacity: 0;
+      -webkit-transform: scale(2.5);
+      transform: scale(2.5);
+  }
+}
+
+@keyframes rippleAnimation {
+  100% {
+      opacity: 0;
+      -webkit-transform: scale(2.5);
+      transform: scale(2.5);
+  }
+}

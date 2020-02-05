@@ -1,0 +1,690 @@
+@import "../fonts/montserrat/montserrat.css";
+@import "../fonts/implanf/style.css";
+@import "../fonts/flexslider-icon/flexslider.css";
+@import "../fonts/WeatherIcons/WeatherIcons.css";
+
+@import "foundation/variables";
+
+@import "theme/bootstrap";
+@import "theme/maps";
+
+@import "foundation/colors";
+@import "foundation/page-transition";
+@import "foundation/ripple";
+
+@import "theme/theme";
+@import "theme/responsive";
+@import "theme/spacings";
+@import "theme/animate";
+
+@import "theme/owl2";
+@import "theme/magnific";
+// @import "theme/slick";
+
+@import "theme/color";
+
+
+
+*, *::after, *::before {
+  outline: none !important;
+  box-sizing: border-box;
+  // touch-action: manipulation;
+}
+
+:root {
+  --f-xs: .5rem;
+  --f-sm: .85rem;
+  --f-bs: 1rem;
+  --f-md: 1.5rem;
+  --f-lg: 2em;
+
+  --s-xs: .75rem;
+  --s-sm: 1rem;
+  --s-bs: 2rem;
+  --s-md: 3rem;
+  --s-lg: 5rem;
+
+
+  --primary: rgba(8, 150, 164, 1);
+  --primary-80: rgba(8, 150, 164, 0.8);
+  --primary-50: rgba(8, 150, 164, 0.5);
+  --primary-15: rgba(8, 150, 164, 0.15);
+  --darker: rgba(27, 27, 27, 1);
+  --dark: rgba(33, 33, 33, 1);
+  --dark-80: rgba(33, 33, 33, 0.8);
+  --dark-20: rgba(33, 33, 33, 0.2);
+  --light: rgba(255, 255, 255, 1);
+  --light-50: rgba(255, 255, 255, 0.5);
+  --light-20: rgba(255, 255, 255, 0.2);
+  --light-05: rgba(255, 255, 255, 0.05);
+}
+
+html, body {
+  -webkit-tap-highlight-color: transparent;
+  overscroll-behavior-y: contain;
+}
+
+html, body,
+#Root {
+  padding: 0;
+  margin: 0;
+  // position: fixed;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  font-family: 'Montserrat', sans-serif;
+  top: 0;
+  left: 0;
+  background: $light;
+  color: $dark;
+  background: var(--light);
+  color: var(--dark);
+  -webkit-overflow-scrollable: none;
+}
+
+#Root {
+  // position: absolute;
+}
+
+html {
+  padding: env(safe-area-inset);
+  height: 100vh;
+}
+
+body {
+  width: 100%;
+  height: 100%;
+
+  .fill {
+    padding: 0;
+    margin: 0;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    position: absolute;
+    overflow: hidden;
+    -webkit-overflow-scrollable: none;
+    overscroll-behavior-y: contain;
+  }
+
+  .full {
+    padding: 0;
+    margin: 0;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    overflow: hidden;
+  }
+
+  .app__statusbar {
+    position: relative;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 23px;
+    background: $primary;
+    background: var(--primary);
+    // display: none;
+    z-index: 10;
+  }
+
+  .app__page {
+    position: relative;
+  }
+
+  &.isStandalone {
+    width: 100vw;
+    height: 100%;
+    .app__statusbar {
+      display: block;
+    }
+
+    .Toastify .Toastify__toast-container {
+      top: 23px;
+    }
+
+
+    #Layout.full {
+      width: 100vw;
+      height: 100vh;
+    }
+
+    /* Landscape */
+    @media only screen and (max-device-width: 667px) and (orientation: landscape) {
+      .app__statusbar {
+        display: none;
+      }
+    }
+  }
+}
+
+
+@media (max-width: 991px) {
+  .navbar-nav .dropdown-menu {
+    left: 0;
+    transform: translateX(0);
+  }
+}
+
+
+button {
+  appearance: none;
+  border: 0;
+  font-family: 'Karla';
+}
+
+h1, h2, h3, h4, h5, h6 {
+  // font-weight: 300;
+  font-family: 'Montserrat', sans-serif;
+}
+
+.defs {
+  position: absolute;
+  width: 0;
+  height: 0;
+  opacity: 0;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0,0,0,0);
+  white-space: nowrap;
+  -webkit-clip-path: inset(50%);
+  clip-path: inset(50%);
+  border: 0;
+}
+
+svg text.material-icons {
+  font-family: 'Material Icons';
+}
+
+::placeholder {
+  color: gray;
+  font-size: 12px;
+  letter-spacing: 1px;
+}
+
+div.scrollable {
+  width: 100%;
+  height: 100%;
+  overflow-y: scroll;
+  -webkit-overflow-scrolling: touch;
+  overflow-x: hidden;
+  // scroll-behavior: smooth;
+}
+
+div.nonscrollable {
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.icon_house, .social-icons {
+  font-size: $f-md;
+  vertical-align: middle;
+}
+
+.uppercase {
+  text-transform: uppercase;
+}
+
+.title {
+  font-size: 14px;
+}
+
+// Loader
+
+$loader-size: 10rem;
+$animation-duration: 1.5s;
+
+.btn {
+  position: relative;
+  overflow: hidden;
+}
+
+.loading {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: $loader-size;
+  height: $loader-size;
+}
+
+.double-pulse {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: $loader-size;
+  height: $loader-size;
+  margin: 0 auto;
+  border-radius: 100%;
+  background-color: white;
+  opacity: .4;
+  animation: double-pulse $animation-duration infinite ease-out;
+
+  &:nth-of-type(2) {
+    animation-delay: -350ms;
+  }
+}
+
+@keyframes double-pulse {
+  0% {
+    transform: scale(0);
+  }
+
+  100% {
+    transform: scale(1);
+    opacity: 0;
+  }
+}
+
+.toast {
+  padding: 1.5rem;
+}
+
+button.toast-close {
+  border: 0;
+  background: transparent;
+  color: #121212;
+  display: inline-block;
+}
+
+// Toastify
+.Toastify__toast {
+  min-height: 53px;
+}
+.Toastify__toast--default {
+  background: #fff;
+  color: #aaa;
+}
+
+.Toastify__toast--info {
+  background: $primary;
+  color: #fff;
+}
+
+.Toastify__toast--success {
+  background: $secondary;
+}
+
+.Toastify__toast--warning {
+  background: #ec971f;
+}
+
+.Toastify__toast--error {
+  background: #ef5659;
+  color: #fff;
+}
+
+.app__page {
+  width: 100%;
+  height: 100%;
+}
+
+.has-error {
+  border: 1px solid $danger !important;
+}
+
+@media (min-width: 768px) {
+  .modal-dialog {
+      width: 600px;
+      margin: 30px auto;
+  }
+}
+
+.flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.flex-wrap {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+
+@media(max-width: 991px) {
+	.flex-wrap {
+		display: block;
+		flex-wrap: nowrap;
+	}
+}
+
+.fixed-right-bottom {
+  position: absolute;
+  bottom: 15px;
+  right: 15px;
+}
+
+.center {
+  text-align: center;
+  justify-content: center;
+}
+
+.btn.btn-dark {
+  background-color: #2b2b2b;
+}
+
+.error-text {
+  color: #c7254e;
+}
+
+.capitalize {
+  text-transform: capitalize;
+}
+
+.esri-map-half {
+  height: 400px;
+  width: 100vw;
+  position: relative;
+}
+
+.weather-box {
+  small {
+    text-transform: capitalize;
+  }
+}
+
+.weather-info {
+  margin-bottom: 10px;
+  display: flex;
+  justify-content: space-around;
+
+  .weather-main {
+    display: flex;
+    align-items: center;
+    flex: 1;
+    justify-content: center;
+    ul li {
+      font-size: 20px;
+    }
+
+    li > small, span > span {
+      color: #7a7a7a;
+      // display: block;
+      font-size: 65%;
+    }
+  }
+  .weather-temp {
+    flex: 1;
+    justify-content: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    i {
+      top: 0;
+      font-size: 50px;
+    }
+    .temp-main {
+      margin-top: 5px;
+      font-size: 20px;
+      > small {
+        color: #7a7a7a;
+        // display: block;
+        font-size: 65%;
+      }
+    }
+  }
+}
+
+.week-days {
+  .owl-item {
+    text-align: center;
+  }
+  .owl-buttons {
+    > div i {
+      line-height: 87px;
+    }
+  }
+  .day-info {
+    padding-top: 0px;
+    border: 0;
+  }
+  &.day-info {
+    border: 0;
+  }
+  .owl-dots {
+    position: relative;
+    bottom: 0;
+    margin-top: 15px;
+    .owl-dot {
+      padding: 5px;
+      span {
+        background: $primary;
+        border-width: 1px;
+        width: 8px;
+        height: 8px;
+        margin: 0;
+        border: 1px solid $light;
+      }
+      &.active span {
+        border: 1px solid $primary;
+      }
+    }
+  }
+}
+
+.cart-temp {
+  height: 66px;
+  line-height: 66px;
+  padding-left: 20px;
+}
+
+@media (max-width: 991px) {
+  .cart-temp {
+    position: absolute;
+    right: 95px;
+    top: 0;
+    height: 52px;
+    line-height: 56px;
+  }
+}
+
+.moon svg {
+	background-image: $moon;
+	background-position: center center;
+	background-size: 85%;
+	background-repeat: no-repeat;
+}
+
+.earth svg {
+	background-image: $earth;
+	background-position: center center;
+	background-size: 85%;
+	background-repeat: no-repeat;
+}
+
+.rounded {
+  border-radius: 70px;
+}
+
+.nav-cart.right {
+  cursor: default;
+}
+
+.esri-popup__main-container {
+  outline: none;
+  pointer-events: auto;
+  position: relative;
+  z-index: 1;
+  width: 340px;
+  max-height: 300px;
+  background-color: #fff;
+  display: flex;
+  flex-flow: column nowrap;
+}
+
+.esri-popup--shadow {
+  box-shadow: 0 1px 4px rgba(0, 0, 0, .8);
+}
+
+.esri-popup__icon {
+  width: 16px;
+  height: 16px;
+  font-size: 16px;
+  display: inline-block;
+  flex: 0 0 16px;
+}
+
+.esri-popup__header {
+  position: relative;
+  font-size: 12px;
+  align-items: flex-start;
+  justify-content: space-between;
+  display: flex;
+  flex: 0 0 auto;
+}
+
+.esri-popup__header-container {
+  flex: 1;
+}
+
+.esri-popup__header-title {
+  font-size: 14px;
+  padding: 12px 15px;
+  margin: 0 auto 0 0;
+  display: block;
+  word-break: break-word;
+  word-wrap: break-word;
+}
+
+.esri-popup__header-buttons {
+  padding: 0 7px;
+  margin: 0 0 0 auto;
+  display: flex;
+}
+
+.esri-popup__button {
+  padding: 12px 7px;
+  line-height: 1.3em;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  // color: #6e6e6e;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: flex;
+}
+
+.esri-popup__content {
+  display: flex;
+  flex-flow: column nowrap;
+  flex: 1 1 auto;
+  font-size: 12px;
+  font-weight: 400;
+  margin: 0 15px 12px;
+  overflow: auto;
+  overflow-x: hidden;
+}
+
+.esri-popup__footer {
+  align-items: center;
+  display: flex;
+  flex: 0 0 auto;
+  justify-content: flex-end;
+}
+
+.esri-popup__footer .esri-popup__button {
+  font-weight: 400;
+  font-size: 16px;
+  position: relative;
+  display: flex;
+  justify-content: flex-end;
+  flex: 0 0 auto;
+}
+
+.esri-popup__footer .esri-popup__actions-menu-button {
+  border-radius: 2px;
+  margin: 6px 7px;
+  padding: 6px 7px;
+  width: 32px;
+  transition: box-shadow 125ms ease-in-out;
+}
+
+.esri-popup__content~.esri-popup__footer {
+  background-color: #f5f5f5;
+  margin-top: -8px!important;
+}
+
+.esri-widget *, .esri-widget *:before, .esri-widget *:after {
+  box-sizing: inherit;
+}
+
+.esri-widget {
+  box-sizing: border-box;
+  color: #323232;
+  font-size: 14px;
+  font-family: "Avenir Next W00","Helvetica Neue",Helvetica,Arial,sans-serif;
+  line-height: 1.3em;
+  background-color: #fff;
+}
+
+.esri-widget__table tr td, .esri-widget__table tr th {
+  padding: 0.5em 0.7em;
+  word-break: break-word;
+  vertical-align: top;
+  font-size: 12px;
+  font-weight: 400;
+}
+
+.esri-widget__table tr:nth-child(odd) {
+  background-color: rgba(76,76,76,0.1);
+}
+
+.esri-widget__table tr td {
+  width: 60%;
+}
+
+.esri-widget__table tr th {
+  width: 50%;
+  text-align: left;
+  border-right: 3px solid rgba(0,0,0,0.05);
+}
+
+.esri-widget__table tr th {
+  border-right: 0;
+  font-weight: 600;
+  width: 40%;
+}
+
+@media (max-width: 991px){
+  .navbar-nav > li > a {
+    color: #7a7a7a;
+  }
+
+  .navigation {
+    box-shadow: none;
+  }
+}
+
+@media (max-width: 991px) {
+  .navbar-nav .dropdown-menu {
+    position: static;
+    float: none;
+    width: auto;
+    margin-top: 0;
+    background-color: transparent;
+    border: 0;
+    box-shadow: none;
+  }
+  .navbar-nav .dropdown-menu>li>a {
+    padding: 5px 15px 5px 25px;
+    color: #777;
+  }
+}
+
+.buttons-holder .btn-lg.btn-white {
+  box-shadow: 0 4px 20px rgba(0,0,0,.1);
+}

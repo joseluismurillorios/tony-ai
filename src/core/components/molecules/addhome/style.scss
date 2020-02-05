@@ -1,0 +1,63 @@
+.addhome {
+  position: absolute;
+  bottom: 15px;
+  padding: 1rem 2rem;
+  background: #eee;
+  z-index: 999;
+	border-radius: 5px;
+	text-align: center;
+  box-shadow: 0px 3px 10px #999;
+  left: 50%;
+  transform: translateX(-50%);
+  white-space: nowrap;
+  font-family: 'Montserrat', sans-serif;
+  
+  h4 {
+    color: #000000;
+    font-size: 1.5rem;
+    margin-top: 0;
+    margin-bottom: 0.5rem;
+    text-transform: uppercase;
+    font-weight: bold;
+  }
+  
+  p {
+    color: #000000;
+    font-size: 1.5rem;
+    margin-top: 0;
+    margin-bottom: 0;
+    line-height: 1.5rem;
+    display: flex;
+    flex-flow: row;
+    text-transform: uppercase;
+
+    img, svg {
+      margin: 0 0.5rem;
+    }
+
+    img.share, .svg-share {
+      height: 1.6rem;
+      margin-top: -2px;
+    }
+    img.home, .svg-home {
+      height: 1.4rem;
+    }
+  }
+
+  &__close-icon {
+    position: absolute;
+    width: 0px;
+    right: 20px;
+    top: 0px;
+    font-size: 24px;
+    font-weight: bolder;
+    color: #000000;
+    cursor: pointer;
+  }
+}
+
+@media screen and (orientation:landscape) {
+  #addhome {
+    display: none;
+  }
+}

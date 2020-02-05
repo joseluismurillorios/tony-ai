@@ -1,0 +1,11 @@
+node_modules
+www/statistics.html
+statistics.html
+
+$RECYCLE.BIN/
+.DS_Store
+Thumbs.db
+.vscode
+serviceAccount.json
+.env
+npm-debug.log

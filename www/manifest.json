@@ -1,0 +1,16 @@
+{
+  "short_name": "Tony AI",
+  "name": "Tony AI - Asistente personal",
+  "icons": [
+    {
+      "src": "launcher-icon-4x.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    }
+  ],
+  "start_url": "/#",
+  "background_color": "#2CB8A5",
+  "display": "standalone",
+  "orientation": "portrait",
+  "theme_color": "#2CB8A5"
+}
