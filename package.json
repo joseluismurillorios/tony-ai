@@ -16,7 +16,7 @@
   "scripts": {
     "start": "node index.js",
     "local": "node -r dotenv/config index.js",
-    "serv": "nodemon -r dotenv/config index.js",
+    "serv": "nodemon -r dotenv/config index.js -i www -i src -i views",
     "dev": "webpack-dev-server --hot --inline --open --config webpack.dev.js",
     "prod": "webpack --config webpack.prod.js",
     "web": "webpack --config webpack.dev.js",
