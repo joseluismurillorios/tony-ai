@@ -10,7 +10,7 @@ export const onWeatherChange = () => (
   dispatch => (
     setInterval(() => {
       console.log('onWeatherChange');
-      axios.get('http://api.openweathermap.org/data/2.5/weather?q=Tijuana,mx&units=metric&lang=es&APPID=e55ac5454485f43016d78b600a54208c')
+      axios.get('https://api.openweathermap.org/data/2.5/weather?q=Tijuana,mx&units=metric&lang=es&APPID=e55ac5454485f43016d78b600a54208c')
         .then((response) => {
           dispatch(setWeatherMetric(response.data));
         })
@@ -25,7 +25,7 @@ export const onForecastChange = () => (
   dispatch => (
     setInterval(() => {
       console.log('onForecastChange');
-      axios.get('http://api.openweathermap.org/data/2.5/forecast?q=Tijuana,mx&units=metric&lang=es&APPID=e55ac5454485f43016d78b600a54208c')
+      axios.get('https://api.openweathermap.org/data/2.5/forecast?q=Tijuana,mx&units=metric&lang=es&APPID=e55ac5454485f43016d78b600a54208c')
         .then((response) => {
           dispatch(setForecastMetric(response.data));
         })
@@ -37,7 +37,7 @@ export const onForecastChange = () => (
 );
 
 export const getWeatherMetric = () => (
-  dispatch => axios.get('http://api.openweathermap.org/data/2.5/weather?q=Tijuana,mx&units=metric&lang=es&APPID=e55ac5454485f43016d78b600a54208c')
+  dispatch => axios.get('https://api.openweathermap.org/data/2.5/weather?q=Tijuana,mx&units=metric&lang=es&APPID=e55ac5454485f43016d78b600a54208c')
     .then((response) => {
       dispatch(setWeatherMetric(response.data));
     })
@@ -47,7 +47,7 @@ export const getWeatherMetric = () => (
 );
 
 export const getForecastMetric = () => (
-  dispatch => axios.get('http://api.openweathermap.org/data/2.5/forecast?q=Tijuana,mx&units=metric&lang=es&APPID=e55ac5454485f43016d78b600a54208c')
+  dispatch => axios.get('https://api.openweathermap.org/data/2.5/forecast?q=Tijuana,mx&units=metric&lang=es&APPID=e55ac5454485f43016d78b600a54208c')
     .then((response) => {
       dispatch(setForecastMetric(response.data));
     })
