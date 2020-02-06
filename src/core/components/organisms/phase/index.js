@@ -3,7 +3,42 @@ import PropTypes from 'prop-types';
 
 import Globe from '../../atoms/globe';
 
-import Owls from '../../molecules/owls';
+import Glides from '../../molecules/glide';
+
+
+const moonConfig = {
+  perView: 5,
+  bullets: false,
+  type: 'carousel',
+  breakpoints: {
+    541: {
+      perView: 3,
+    },
+    768: {
+      perView: 3,
+    },
+    979: {
+      perView: 5,
+    },
+  },
+};
+
+const earthConfig = {
+  perView: 4,
+  bullets: false,
+  type: 'carousel',
+  breakpoints: {
+    541: {
+      perView: 2,
+    },
+    768: {
+      perView: 2,
+    },
+    979: {
+      perView: 4,
+    },
+  },
+};
 
 const Phase = ({
   type,
@@ -14,6 +49,7 @@ const Phase = ({
   current,
 }) => {
   const id = `${type}Current`;
+  const config = type === 'earth' ? earthConfig : moonConfig;
   return (
     <div className="widget weather">
       <h3 className="widget-title heading relative heading-small uppercase style-2 text-center bottom-line pt-10 hidden-xs">
@@ -33,7 +69,18 @@ const Phase = ({
             <Globe id={id} type={type} age={0} phase={current} />
           </div>
         </div>
-        <Owls phaseObj={phases} type={type} />
+        <Glides className="week-days" config={config}>
+          {
+            Object.keys(phases).map(el => (
+              <li key={phases[el].id} className="week-day capitalize">
+                <span><small>{phases[el].name}</small></span>
+                <Globe id={phases[el].id} type={type} phase={phases[el].phase} size="60px" />
+                <span>{phases[el].day}</span>
+                <span><small>{phases[el].hour}</small></span>
+              </li>
+            ))
+          }
+        </Glides>
       </div>
     </div>
   );

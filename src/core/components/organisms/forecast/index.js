@@ -1,36 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import OwlCarousel from 'react-owl-carousel';
 
 import Clock from '../../atoms/clock';
+import Slider from '../../molecules/glide';
 import { getWeatherIcon, getWeatherDateObj } from '../../../helpers/helper-weather';
-
-const forecastConfig = {
-  responsive: {
-    0: {
-      items: 3,
-    },
-    768: {
-      items: 3,
-    },
-    979: {
-      items: 5,
-    },
-  },
-  responsiveDay: {
-    0: {
-      items: 2,
-    },
-    768: {
-      items: 2,
-    },
-    979: {
-      items: 4,
-    },
-  },
-  navigationText: ['<i class=\'implanf-chevron-left\'></i>', '<i class=\'implanf-chevron-right\'></i>'],
-  slideBy: 'page',
-};
 
 class Forecast extends Component {
   constructor(props) {
@@ -127,12 +100,9 @@ class Forecast extends Component {
           </div>
           {
             forecastMetric && forecastMetric.list && (
-              <OwlCarousel
+              <Slider
                 className="week-days owl-theme"
-                responsive={forecastConfig.responsive}
-                navText={forecastConfig.navigationText}
-                slideBy={forecastConfig.slideBy}
-                nav
+                slideBy="page"
               >
                 {
                   forecastMetric.list.map((obj) => {
@@ -141,7 +111,7 @@ class Forecast extends Component {
                     const date = getWeatherDateObj(dt);
                     const icn = getWeatherIcon(idn, ic.indexOf('n') > -1);
                     return (
-                      <li key={dt} className="capitalize">
+                      <li key={dt} className="week-day capitalize">
                         <span>{date.day.replace('.', '')}</span>
                         <span><small>{date.hour}</small></span>
                         <span className={icn} />
@@ -152,7 +122,7 @@ class Forecast extends Component {
                     );
                   })
                 }
-              </OwlCarousel>
+              </Slider>
             )
           }
         </div>

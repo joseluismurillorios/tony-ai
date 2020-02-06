@@ -1,10 +1,18 @@
+import Home from './home';
 import News from './news';
 
 export const ROUTES = [
   {
-    url: '/noticias',
+    url: '/inicio',
+    component: Home,
+    name: 'Inicio',
+    items: [
+    ],
+  },
+  {
+    url: '/clima',
     component: News,
-    name: 'Noticias',
+    name: 'Clima',
     items: [
     ],
   },
