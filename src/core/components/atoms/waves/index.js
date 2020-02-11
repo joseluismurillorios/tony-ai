@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-// import PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 
 class Waves extends Component {
   constructor(props) {
@@ -10,7 +10,7 @@ class Waves extends Component {
     this.CIRCLE_RADIUS = 50;
     this.WAVES = 10;
     this.SPEED = 1;
-    this.BG_COLOR = '#3d5afe';
+    this.BG_COLOR = '#2CB8A5';
     this.DOT_COLOR = '#ffffff';
 
     this.createOffScreenCanvas = this.createOffScreenCanvas.bind(this);
@@ -26,7 +26,7 @@ class Waves extends Component {
 
     this.ctx = this.cv.getContext('2d');
 
-    this.setBgColor();
+    // this.setBgColor();
 
     this.angleDeg = 0;
     this.angleRad = 0;
@@ -146,8 +146,11 @@ class Waves extends Component {
   }
 
   render() {
+    const {
+      className,
+    } = this.props;
     return (
-      <section ref={(el) => { this.mainCont = el; }} className="fill bg-primary">
+      <section ref={(el) => { this.mainCont = el; }} className={className}>
         <canvas ref={(el) => { this.cv = el; }} />
       </section>
     );
@@ -155,9 +158,11 @@ class Waves extends Component {
 }
 
 Waves.defaultProps = {
+  className: '',
 };
 
 Waves.propTypes = {
+  className: PropTypes.string,
 };
 
 export default Waves;

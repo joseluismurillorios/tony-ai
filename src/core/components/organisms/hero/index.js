@@ -73,6 +73,9 @@ class Hero extends Component {
   }
 
   render() {
+    const {
+      goTo,
+    } = this.props;
     return (
       <section className="hero-wrap text-center bg-primary">
         <div ref={(el) => { this.container = el; }} className="container">
@@ -92,11 +95,15 @@ class Hero extends Component {
                   Ver Reportes de Riesgo
                 </Linked>
               </div>
-              <div className="local-scroll">
-                <button onClick={this.scrollTo} type="button" className="scroll-down btn-color">
-                  <i className="implanf-expand_more" />
-                </button>
-              </div>
+              {
+                goTo !== '' && (
+                  <div className="local-scroll">
+                    <button onClick={this.scrollTo} type="button" className="scroll-down btn-color">
+                      <i className="implanf-expand_more" />
+                    </button>
+                  </div>
+                )
+              }
             </div>
           </div>
         </div>

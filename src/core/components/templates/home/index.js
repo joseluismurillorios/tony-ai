@@ -2,34 +2,136 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import debounce from 'lodash/debounce';
 
-import Container from '../../atoms/container';
-import Section from '../../atoms/section';
-import Linked from '../../atoms/linked';
 import Scrollable from '../../atoms/scrollable';
 
-import Hero from '../../organisms/hero';
-import Footer from '../../organisms/footer';
+import Wave from '../../atoms/aether';
 
 import { setLoader } from '../../../redux/actions/common';
-import Row from '../../atoms/row';
+
+import { Speech, SpeechRec } from '../../../helpers/helper-speech';
+import { noteValues, arpeggiator } from '../../../helpers/helper-sound';
+import Dropdown from '../../atoms/dropdown';
+
+const chordSuccess = [
+  noteValues.C5,
+  // noteValues.E5,
+  noteValues.F5,
+];
+const chordError = [
+  noteValues.F4,
+  // noteValues.E4,
+  noteValues.A3,
+];
 
 class Home extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      resultString: '',
+      voices: [],
+      selectedVoice: '',
+    };
+
+    this.ctx = new (window.AudioContext || window.webkitAudioContext)();
+
+    this.onResult = debounce(this.onResult.bind(this), 1000);
+    this.onLoad = this.onLoad.bind(this);
+    this.onVoices = this.onVoices.bind(this);
+    // this.startSpeaking = this.startSpeaking.bind(this);
+    this.endSpeaking = this.endSpeaking.bind(this);
+    this.onEnd = this.onEnd.bind(this);
+    this.onStart = this.onStart.bind(this);
+
+    this.started = false;
+  }
+
   componentDidMount() {
-    const { mapLoading } = this.props;
-    mapLoading(true);
+    const { loaderSet } = this.props;
+    loaderSet(true);
     setTimeout(() => {
-      mapLoading(false);
+      loaderSet(false);
     }, 500);
+    this.speechRec = new SpeechRec('es-MX');
+    this.speechRec.onStart = this.onStart;
+    this.speechRec.onEnd = this.onEnd;
+    this.speechRec.onResult = this.onResult;
+    this.speechRec.start(true, true);
+    this.speech = new Speech(this.onLoad);
+    // this.speech.started(this.startSpeaking);
+    this.speech.ended(this.endSpeaking);
+  }
+
+  onLoad() {
+    console.log('voice ready');
+    const voices = this.speech.voices.filter(v => /^es-/.test(v.lang));
+    this.speech.setVoice('Juan');
+    this.setState({
+      voices,
+      selectedVoice: 'Juan',
+    });
+  }
+
+  onVoices(e) {
+    this.speech.setVoice(e.value);
+    this.setState({
+      selectedVoice: e.value,
+    });
+    this.speechRec.stop();
+    this.text = `Hola ${e.value}`;
+  }
+
+  onResult({ resultString }) {
+    console.log('result', resultString);
+    this.setState({
+      resultString,
+    });
+  }
+
+  onStart() {
+    console.log('started');
+    if (!this.started) {
+      arpeggiator(chordError, this.ctx);
+      this.started = true;
+    }
+  }
+
+  onEnd() {
+    console.log('ended');
+    if (this.text) {
+      arpeggiator(chordSuccess, this.ctx);
+      setTimeout(() => {
+        this.speech.speak(this.text);
+        this.text = undefined;
+        this.started = false;
+      }, 1000);
+    } else {
+      this.speechRec.start(true, true);
+    }
+  }
+
+  // startSpeaking() {
+  //   console.log('startSpeaking');
+  //   // this.speechRec.stop();
+  // }
+
+  endSpeaking() {
+    console.log('endSpeaking');
+    setTimeout(() => { this.speechRec.start(true, true); }, 500);
   }
 
   render() {
-    const { mapLoading } = this.props;
-    // mapLoading(false);
+    const {
+      resultString,
+      voices,
+      selectedVoice,
+    } = this.state;
+    const items = voices.map(v => ({ id: v.name, name: v.name, lang: v.lang }));
     return (
       <div
         id="Home"
-        className="app__page"
+        className="app__page bg-gradient"
         ref={(el) => { this.container = el; }}
         disabled
       >
@@ -37,24 +139,16 @@ class Home extends Component {
           className="fs-home open"
           id="MainScroll"
           style={{ backgroundColor: 'transparent' }}
-          toTop
+          disabled
+          // toTop
         >
-          <Hero goTo="HomePress" onLoad={mapLoading} />
-          <Section className="call-to-action style-2 bg-light">
-            <Container>
-              <Row>
-                <div className="col-xs-12 text-center">
-                  <h2>¿Necesitas más información? ¡Envíanos tu mensaje!</h2>
-                  <div className="cta-button">
-                    <Linked url="/contacto" className="btn btn-md btn-color rounded">
-                      Contacto
-                    </Linked>
-                  </div>
-                </div>
-              </Row>
-            </Container>
-          </Section>
-          <Footer id="Footer" />
+          <Wave className="fill" />
+          <div className="result-string">
+            {resultString}
+          </div>
+          <div className="voices">
+            <Dropdown id="Voices" items={items} onChange={this.onVoices} value={selectedVoice} />
+          </div>
         </Scrollable>
       </div>
     );
@@ -62,11 +156,11 @@ class Home extends Component {
 }
 
 Home.defaultProps = {
-  mapLoading: () => { },
+  loaderSet: () => { },
 };
 
 Home.propTypes = {
-  mapLoading: PropTypes.func,
+  loaderSet: PropTypes.func,
 };
 
 const mapStateToProps = state => ({
@@ -76,7 +170,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = {
-  mapLoading: setLoader,
+  loaderSet: setLoader,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Home);

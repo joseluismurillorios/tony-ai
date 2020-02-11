@@ -1,5 +1,5 @@
 import Home from './home';
-import News from './news';
+// import News from './news';
 
 export const ROUTES = [
   {
@@ -9,13 +9,13 @@ export const ROUTES = [
     items: [
     ],
   },
-  {
-    url: '/clima',
-    component: News,
-    name: 'Clima',
-    items: [
-    ],
-  },
+  // {
+  //   url: '/clima',
+  //   component: News,
+  //   name: 'Clima',
+  //   items: [
+  //   ],
+  // },
 ];
 
 export default ROUTES;

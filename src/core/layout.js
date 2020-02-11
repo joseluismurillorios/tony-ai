@@ -125,7 +125,11 @@ class Layout extends Component {
     const style = height ? { top, height: height - top } : { top };
     const loaderClass = (typeof common.loading === 'string') ? common.loading : 'bg-light-80';
     return (
-      <div id="Layout" style={{ height }} className="app__layout full">
+      <div
+        id="Layout"
+        style={{ height }}
+        className="app__layout full"
+      >
         <Header
           setRef={this.setHeaderRef}
           isStandalone={isStandalone}

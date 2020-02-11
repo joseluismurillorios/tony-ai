@@ -6845,3 +6845,25 @@ input[type="time"]:focus {
 		}
 	}
 }
+
+.aether {
+	z-index: 1;
+}
+
+.result-string {
+	position: absolute;
+	top: 30px;
+	left: 30px;
+	z-index: 99;
+}
+
+.voices {
+	position: absolute;
+	top: 30px;
+	right: 30px;
+	z-index: 99;
+	.drop {
+		background-color: $light;
+		margin: 0;
+	}
+}
