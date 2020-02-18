@@ -10,9 +10,8 @@ import { debounce } from '../../../helpers/helper-util';
 
 import assets from '../../../assets';
 
-// import Logo from '../../atoms/logo';
-import Button from '../../atoms/button';
 import NavItem from './nav-item';
+import Clock from '../../atoms/clock';
 
 class Header extends Component {
   constructor(props) {
@@ -137,13 +136,8 @@ class Header extends Component {
     const {
       setRef,
       isStandalone,
-      login,
-      logout,
-      user,
     } = this.props;
     const { temp } = this.getTemp();
-    const userObj = (user && user.email) ? (user.displayName || user.email) : 'Invitado';
-    const userName = userObj.split(' ')[0].split('@')[0];
     return (
       <header
         className="nav-type-3"
@@ -162,18 +156,11 @@ class Header extends Component {
                 <div className="navbar-header">
                   {
                     temp && (
-                      <NavItem
-                        className="cart-temp right hidden-lg hidden-md"
-                        exact
-                        to="/noticias"
-                        onClick={() => {
-                          $('#MainScroll').scrollTop(0);
-                        }}
-                      >
+                      <div className="cart-temp right hidden-lg hidden-md">
                         {temp}
                         °
                         <small> C</small>
-                      </NavItem>
+                      </div>
                     )
                   }
                   <div className="nav-cart mobile-cart right hidden-lg hidden-md">
@@ -192,7 +179,7 @@ class Header extends Component {
                 </div>
                 <div className="header-wrap col-md-12">
 
-                  <div className="nav-search type-2 hidden-sm hidden-xs">
+                  <div className="nav-search type-2">
                     <div className="logo-wrap">
                       <NavItem
                         exact
@@ -212,49 +199,17 @@ class Header extends Component {
                   <div className="nav-cart-wrap style-2 hidden-sm hidden-xs">
                     {
                       temp && (
-                        <div className="nav-cart right">
-                          <NavItem
-                            className="cart-temp right"
-                            exact
-                            to="/noticias"
-                            onClick={() => {
-                              $('#MainScroll').scrollTop(0);
-                            }}
-                          >
+                        <div className="nav-cart right pl-10">
+                          <span>
                             {temp}
                             °
                             <small> C</small>
-                          </NavItem>
+                          </span>
                         </div>
                       )
                     }
-                    <div className="nav-cart right">
-                      <div className="nav-cart-ammount">
-                        <span>{userName}</span>
-                      </div>
-                      <div className="cart-outer right">
-                        <div className="cart-inner">
-                          <i className="implanf-person" />
-                        </div>
-                      </div>
-                      <div className="nav-cart-container">
-                        <div className="nav-cart-actions">
-                          {
-                            user && user.email
-                              ? (
-                                <Button color="red" size="md" onTap={logout}>
-                                  Salir
-                                </Button>
-                              )
-                              : (
-                                <Button color="primary" size="md" onTap={login}>
-                                  Entrar
-                                  <span className="implanf-google ml-10" />
-                                </Button>
-                              )
-                          }
-                        </div>
-                      </div>
+                    <div className="nav-cart right pl-10">
+                      <Clock noseconds />
                     </div>
                   </div>
                 </div>
@@ -264,40 +219,6 @@ class Header extends Component {
                       {
                         this.router
                       }
-
-                      {/* <li id="mobile-search" className="hidden-lg hidden-md">
-                        <form method="get" className="mobile-search relative">
-                          <input type="search" className="form-control" placeholder="Buscar..." />
-                          <button type="submit" className="search-button">
-                            <i className="icon icon_search" />
-                          </button>
-                        </form>
-                      </li> */}
-
-                      <li className="dropdown hidden-lg hidden-md">
-                        <a href="#" className="dropdown-toggle" data-toggle="dropdown">
-                          <span className="implanf-person mr-10" />
-                          {userName}
-                        </a>
-                        <ul className="dropdown-menu">
-                          <li>
-                            {
-                              user && user.email
-                                ? (
-                                  <a href="/" onClick={logout} className="uppercase error-text">
-                                    Salir
-                                  </a>
-                                )
-                                : (
-                                  <a href="#" onClick={login} className="uppercase">
-                                    Entrar
-                                    <span className="implanf-google ml-10" />
-                                  </a>
-                                )
-                            }
-                          </li>
-                        </ul>
-                      </li>
                     </ul>
                   </div>
                 </div>
@@ -314,10 +235,7 @@ class Header extends Component {
 Header.defaultProps = {
   searchItems: () => {},
   setRef: () => {},
-  login: () => {},
-  logout: () => {},
   isStandalone: false,
-  user: false,
 };
 
 Header.propTypes = {
@@ -325,17 +243,11 @@ Header.propTypes = {
     PropTypes.any,
   ).isRequired,
   searchItems: PropTypes.func,
-  login: PropTypes.func,
-  logout: PropTypes.func,
   setRef: PropTypes.func,
   isStandalone: PropTypes.bool,
   routes: PropTypes.arrayOf(
     PropTypes.any,
   ).isRequired,
-  user: PropTypes.oneOfType([
-    PropTypes.object,
-    PropTypes.bool,
-  ]),
 };
 
 const mapStateToProps = state => ({

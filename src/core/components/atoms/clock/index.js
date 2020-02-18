@@ -1,38 +1,36 @@
-import React from 'react';
+import React, { useRef, useEffect } from 'react';
 import PropTypes from 'prop-types';
 
+import dayjs from '../../../helpers/helper-date';
 
-import { getDate, getDateHour } from '../../../helpers/helper-date';
-
-class Clock extends React.Component {
-  componentDidMount() {
-    const { noseconds } = this.props;
-    this.intervalID = setInterval(
+const Clock = ({
+  format,
+}) => {
+  const clock = useRef(null);
+  let intervalID = null;
+  useEffect(() => {
+    intervalID = setInterval(
       () => {
-        const time = noseconds ? getDateHour() : getDate();
-        this.clock.innerHTML = time;
+        const time = dayjs().format(format);
+        clock.current.innerHTML = time;
       },
       1000,
     );
-  }
-
-  componentWillUnmount() {
-    clearInterval(this.intervalID);
-  }
-
-  render() {
-    return (
-      <span className="clock capitalize" ref={(el) => { this.clock = el; }} />
-    );
-  }
-}
+    return () => {
+      clearInterval(intervalID);
+    };
+  });
+  return (
+    <span className="clock" ref={clock} />
+  );
+};
 
 Clock.defaultProps = {
-  noseconds: false,
+  format: 'MMM DD hh:mm A',
 };
 
 Clock.propTypes = {
-  noseconds: PropTypes.bool,
+  format: PropTypes.string,
 };
 
 export default Clock;

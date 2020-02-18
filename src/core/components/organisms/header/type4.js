@@ -1,6 +1,4 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-/* eslint-disable jsx-a11y/href-no-hash */
-/* eslint-disable jsx-a11y/anchor-has-content */
 
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
@@ -10,23 +8,93 @@ import { connect } from 'react-redux';
 import $ from '../../../helpers/helper-jquery';
 import { debounce } from '../../../helpers/helper-util';
 
-import Logo from '../../atoms/logo';
+import assets from '../../../assets';
 
-// import assets from '../../../assets';
+import NavItem from './nav-item';
+import Clock from '../../atoms/clock';
 
-class NavBar extends Component {
+class Header extends Component {
   constructor(props) {
     super(props);
-    this.setRef = this.setRef.bind(this);
     this.onSearch = this.onSearch.bind(this);
+    this.getTemp = this.getTemp.bind(this);
     this.debouncedSearch = debounce(this.debouncedSearch.bind(this), 1000);
+
+    const { routes } = this.props;
+    this.router = routes.map((path, i) => (
+      <li
+        key={path.url !== '#' ? path.url : i}
+        className={path.items.length ? 'dropdown' : ''}
+      >
+        {
+          path.items.length
+            ? (
+              <a href="#" className="dropdown-toggle" data-toggle="dropdown">{path.name}</a>
+            )
+            : (
+              <NavItem
+                key={path.url}
+                exact
+                to={path.url}
+                onClick={() => {
+                  $('#MainScroll').scrollTop(0);
+                }}
+              >
+                {path.name}
+              </NavItem>
+            )
+        }
+        {
+          !!(path.items.length) && (
+            <ul className="dropdown-menu">
+              {
+                path.items.map(sub => (
+                  <li key={sub.url}>
+                    <NavItem
+                      key={sub.url}
+                      exact
+                      to={sub.url}
+                      onClick={() => {
+                        $('#MainScroll').scrollTop(0);
+                      }}
+                    >
+                      {sub.name}
+                    </NavItem>
+                  </li>
+                ))
+              }
+            </ul>
+          )
+        }
+      </li>
+    ));
+    this.router = this.router.length > 1 ? this.router : [];
   }
 
   componentDidMount() {
+    $(window).on('resize', () => {
+      $('.navbar-collapse').collapse('hide');
+    });
+
+    // Add slideDown animation to Bootstrap dropdown when expanding.
+    $('.dropdown').on('show.bs.dropdown', (data) => {
+      $(data.target).find('.dropdown-menu').first().stop(true, true)
+        .slideDown('fast');
+    });
+
+    // Add slideUp animation to Bootstrap dropdown when collapsing.
+    $('.dropdown').on('hide.bs.dropdown', (e) => {
+      $(e.target).find('.dropdown-menu').first().stop(true, true)
+        .slideUp('fast');
+    });
+
     $(document).click((e) => {
       const clickover = $(e.target);
       const opened = $('.navbar-collapse').hasClass('collapse in');
-      if (opened === true && !clickover.hasClass('navbar-toggle')) {
+      if (opened === true
+        && !clickover.hasClass('navbar-toggle')
+        && !clickover.hasClass('dropdown-toggle')
+        && !clickover.hasClass('form-control')) {
         $('button.navbar-toggle').click();
       }
     });
@@ -41,8 +109,22 @@ class NavBar extends Component {
     this.debouncedSearch();
   }
 
-  setRef(input) {
-    this.childRef = input;
+  getTemp() {
+    const { forecast } = this.props;
+    if (forecast.weatherMetric) {
+      const { weatherMetric } = forecast;
+      if (weatherMetric.main) {
+        const { main } = weatherMetric;
+        const { temp } = main;
+        return {
+          temp,
+        };
+      }
+    }
+
+    return {
+      temp: false,
+    };
   }
 
   debouncedSearch() {
@@ -51,215 +133,145 @@ class NavBar extends Component {
   }
 
   render() {
-    const { setRef, isStandalone } = this.props;
+    const {
+      setRef,
+      isStandalone,
+    } = this.props;
+    const { temp } = this.getTemp();
     return (
       <header
-        className="nav-type-4"
+        className="nav-type-3"
         ref={setRef}
+        id="Header"
       >
         {
           isStandalone && (
             <div className="app__statusbar" />
           )
         }
-        <div className="top-bar hidden-xs">
-          <div className="container">
-            <div className="row">
-              <div className="top-bar-links">
-
-                <ul className="col-sm-6">
-                  <li className="top-bar-date">
-                    <span>Blvd. Cuauhtémoc #2340, Tijuana, B.C.</span>
-                  </li>
-                </ul>
-
-                <ul className="col-sm-6 top-bar-acc text-right">
-                  <li className="social-icons dark">
-                    <a href="#"><span className="implanf-twitter" /></a>
-                    <a href="#"><span className="implanf-facebook" /></a>
-                  </li>
-                  <li className="top-bar-link"><a href="#">Registro</a></li>
-                  <li className="top-bar-link"><a href="#">Entrar</a></li>
-                </ul>
-
-              </div>
-            </div>
-          </div>
-        </div>
-
         <nav className="navbar navbar-static-top">
           <div className="navigation">
-            <div className="container-fluid relative">
-
+            <div className="container relative">
               <div className="row">
-
-                <div className="navbar-header container">
-                  <div className="row">
-                    <button type="button" className="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse">
-                      <span className="sr-only">Toggle navigation</span>
-                      <span className="icon-bar" />
-                      <span className="icon-bar" />
-                      <span className="icon-bar" />
-                    </button>
+                <div className="navbar-header">
+                  {
+                    temp && (
+                      <NavItem
+                        className="cart-temp right hidden-lg hidden-md"
+                        exact
+                        to="/noticias"
+                        onClick={() => {
+                          $('#MainScroll').scrollTop(0);
+                        }}
+                      >
+                        {temp}
+                        °
+                        <small> C</small>
+                      </NavItem>
+                    )
+                  }
+                  <div className="nav-cart mobile-cart right hidden-lg hidden-md">
+                    <div className="cart-outer">
+                      <div className="cart-inner">
+                        <i className="implanf-person" />
+                      </div>
+                    </div>
                   </div>
+                  <button type="button" className="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse">
+                    <span className="sr-only">Toggle navigation</span>
+                    <span className="icon-bar" />
+                    <span className="icon-bar" />
+                    <span className="icon-bar" />
+                  </button>
                 </div>
+                <div className="header-wrap col-md-12">
 
-                <div className="header-wrap">
+                  <div className="nav-search type-2 hidden-sm hidden-xs">
+                    <div className="logo-wrap">
+                      <NavItem
+                        exact
+                        to="/inicio"
+                        onClick={() => {
+                          $('#MainScroll').scrollTop(0);
+                        }}
+                      >
+                        {/* <Logo /> */}
+                        <img src={assets.navbarSmall} alt="TonyAI Web" />
+                      </NavItem>
+                    </div>
+                  </div>
 
-                  <div className="container">
-                    <div className="row">
-                      <div className="logo-container">
-                        <div className="logo-wrap text-center">
-                          <a href="index.html">
-                            <Logo />
-                          </a>
+                  <div className="logo-container" />
+
+                  <div className="nav-cart-wrap style-2 hidden-sm hidden-xs">
+                    {
+                      temp && (
+                        <div className="nav-cart right">
+                          <div className="cart-temp right">
+                            {temp}
+                            °
+                            <small> C</small>
+                          </div>
+                        </div>
+                      )
+                    }
+                    <div className="nav-cart right">
+                      <div className="nav-cart-ammount">
+                        <Clock />
+                      </div>
+                    </div>
+                    {/* <div className="nav-cart right">
+                      <div className="cart-outer right">
+                        <div className="cart-inner">
+                          <i className="implanf-person" />
                         </div>
                       </div>
-
-                      {/* <div className="header-ad hidden-sm hidden-xs">
-                        <a href="#">
-                          <img src={banner} alt="" />
-                        </a>
-                      </div> */}
-
-                    </div>
+                    </div> */}
                   </div>
-
                 </div>
-
-                <div className="nav-wrap">
-                  <div className="container">
-                    <div className="row">
-                      <div className="collapse navbar-collapse" id="navbar-collapse">
-
-                        <ul className="nav navbar-nav">
-
-                          <li id="mobile-search" className="hidden-lg hidden-md">
-                            <form method="get" className="mobile-search relative">
-                              <input type="search" className="form-control" placeholder="Buscar..." />
-                              <button type="submit" className="search-button">
-                                <i className="icon icon_search" />
-                              </button>
-                            </form>
-                          </li>
-
-                          <li className="nav-home hidden-sm hidden-xs">
-                            <a href="#"><span className="icon_house implanf-home" /></a>
-                          </li>
-
-                          <li className="dropdown active">
-                            <a href="#" className="dropdown-toggle" data-toggle="dropdown">Inicio</a>
-                            <ul className="dropdown-menu">
-                              <li><a href="#">Presentación</a></li>
-                              <li><a href="#">Video Institucional</a></li>
-                              <li><a href="#">Mapa de Contenido</a></li>
-                            </ul>
-                          </li>
-
-                          <li className="dropdown">
-                            <a href="#" className="dropdown-toggle" data-toggle="dropdown">Noticias</a>
-                            <ul className="dropdown-menu">
-                              <li><a href="#">Gobierno</a></li>
-                              <li><a href="#">COMUNITI</a></li>
-                              <li><a href="#">Tiempo</a></li>
-                              <li><a href="#">Condiciones Clim.</a></li>
-                              <li><a href="#">Eventos Y Congresos</a></li>
-                              <li><a href="#">Árticulos</a></li>
-                            </ul>
-                          </li>
-
-                          <li className="dropdown">
-                            <a href="#" className="dropdown-toggle" data-toggle="dropdown">Nosotros</a>
-                            <ul className="dropdown-menu">
-                              <li><a href="#">Objectivos</a></li>
-                              <li><a href="#">Misión</a></li>
-                              <li><a href="#">Visión</a></li>
-                              <li><a href="#">Instituciones y Empresas Participantes</a></li>
-                              <li><a href="#">COMUNITI Mesa de R. Y R.</a></li>
-                            </ul>
-                          </li>
-
-                          <li className="dropdown">
-                            <a href="#" className="dropdown-toggle" data-toggle="dropdown" title="Mapas Temáticos">Mapas</a>
-                            <ul className="dropdown-menu">
-                              <li><a href="#">Tijuana 2014</a></li>
-                              <li><a href="#">Rosarito 2018</a></li>
-                              <li><a href="#">PMDU Y PDUCP</a></li>
-                              <li><a href="#">Links a Páginas externas</a></li>
-                              <li><a href="#">Estudios Expeciales</a></li>
-                              <li><a href="#">Contribuciones</a></li>
-                            </ul>
-                          </li>
-
-                          <li className="dropdown">
-                            <a href="#" className="dropdown-toggle" data-toggle="dropdown">Contacto</a>
-                            <ul className="dropdown-menu">
-                              <li><a href="#">TonyAI</a></li>
-                              <li><a href="#">Colegios</a></li>
-                              <li><a href="#">Correos</a></li>
-                              <li><a href="#">Encuestas</a></li>
-                            </ul>
-                          </li>
-
-                          <li className="dropdown">
-                            <a href="#" className="dropdown-toggle" data-toggle="dropdown">Herramientas</a>
-                            <ul className="dropdown-menu">
-                              <li><a href="#">Software Open Source</a></li>
-                              <li><a href="#">Lineamientos</a></li>
-                              <li><a href="#">Formatos</a></li>
-                              <li><a href="#">Herramientas de Cálculo</a></li>
-                              <li><a href="#">Área de niños</a></li>
-                              <li><a href="#">Plataforma Para Solicitar Op. de Riesgo</a></li>
-                              <li><a href="#">Participación Ciudadana</a></li>
-                              <li><a href="#">MOOC</a></li>
-                            </ul>
-                          </li>
-
-                          <li className="dropdown">
-                            <a href="#" className="dropdown-toggle" data-toggle="dropdown">Información</a>
-                            <ul className="dropdown-menu">
-                              <li><a href="#">Docs. de Planeación Riesgos, Vigentes</a></li>
-                              <li><a href="#">Marco Normativo</a></li>
-                              <li><a href="#">TR Para Estudios Y Proyectos</a></li>
-                              <li><a href="#">Estudios Especiales Para Desco</a></li>
-                              <li><a href="#">Contribuciones</a></li>
-                            </ul>
-                          </li>
-                        </ul>
-                      </div>
-
-                    </div>
+                <div className="col-md-12 nav-wrap">
+                  <div className="collapse navbar-collapse" id="navbar-collapse" style={{ maxHeight: '910px' }}>
+                    <ul className="nav navbar-nav">
+                      {
+                        this.router
+                      }
+                    </ul>
                   </div>
-
                 </div>
-
               </div>
             </div>
           </div>
         </nav>
       </header>
+
     );
   }
 }
 
-NavBar.defaultProps = {
+Header.defaultProps = {
   searchItems: () => {},
   setRef: () => {},
   isStandalone: false,
 };
 
-NavBar.propTypes = {
+Header.propTypes = {
+  forecast: PropTypes.objectOf(
+    PropTypes.any,
+  ).isRequired,
   searchItems: PropTypes.func,
   setRef: PropTypes.func,
   isStandalone: PropTypes.bool,
+  routes: PropTypes.arrayOf(
+    PropTypes.any,
+  ).isRequired,
 };
 
 const mapStateToProps = state => ({
   router: state.router,
-  common: state.common,
+  forecast: state.forecast,
 });
 
 const mapDispatchToProps = {
 };
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(NavBar));
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Header));

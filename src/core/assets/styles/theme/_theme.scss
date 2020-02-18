@@ -916,7 +916,8 @@ p {
 	}
 }
 .nav-type-3 {
-	background: $light;
+	// background: $light;
+	background: rgba(255, 255, 255, 0.7);
 	.nav {
 		.mobile-links {
 			display: none;
@@ -925,9 +926,16 @@ p {
 			display: inline-block;
 		}
 	}
+	.nav-cart {
+		span {
+			font-size: 18px;
+			text-transform: uppercase;
+			font-weight: 500;
+		}
+	}
 	.navbar {
 		min-height: 86px;
-		background: #fff;
+		// background: #fff;
 	}
 	.header-wrap {
 		display: table;
@@ -6865,5 +6873,22 @@ input[type="time"]:focus {
 	.drop {
 		background-color: $light;
 		margin: 0;
+	}
+}
+
+#Visualizer {
+	padding: 0;
+	margin: 0;
+	position: fixed;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	right: 0;
+	overflow: hidden;
+}
+
+@media (max-width: 991px) {
+	.nav-type-3 .logo-wrap>a {
+		height: 52px;
 	}
 }

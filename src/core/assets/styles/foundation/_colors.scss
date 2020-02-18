@@ -254,6 +254,10 @@ $color_four: #A18CD1;
 	background: linear-gradient(-45deg, $color_one, $color_four);
 }
 
+.bg-gradient-02 {
+  background: linear-gradient(to bottom right, #D7BBEA, #65A8F1);
+}
+
 .bg-animated {
 	// background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
 	background: linear-gradient(-45deg, $color_one, $color_four, $color_four, $color_one);

@@ -128,7 +128,7 @@ class Layout extends Component {
       <div
         id="Layout"
         style={{ height }}
-        className="app__layout full"
+        className="app__layout full bg-gradient-02"
       >
         <Header
           setRef={this.setHeaderRef}

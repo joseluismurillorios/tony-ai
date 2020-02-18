@@ -6,13 +6,14 @@ import debounce from 'lodash/debounce';
 
 import Scrollable from '../../atoms/scrollable';
 
-import Wave from '../../atoms/aether';
+// import Wave from '../../atoms/aether';
 
 import { setLoader } from '../../../redux/actions/common';
 
 import { Speech, SpeechRec } from '../../../helpers/helper-speech';
 import { noteValues, arpeggiator } from '../../../helpers/helper-sound';
 import Dropdown from '../../atoms/dropdown';
+import Visualizer from '../../molecules/visualizer';
 
 const chordSuccess = [
   noteValues.C5,
@@ -57,7 +58,7 @@ class Home extends Component {
     this.speechRec.onStart = this.onStart;
     this.speechRec.onEnd = this.onEnd;
     this.speechRec.onResult = this.onResult;
-    this.speechRec.start(true, true);
+    // this.speechRec.start(true, true);
     this.speech = new Speech(this.onLoad);
     // this.speech.started(this.startSpeaking);
     this.speech.ended(this.endSpeaking);
@@ -131,7 +132,7 @@ class Home extends Component {
     return (
       <div
         id="Home"
-        className="app__page bg-gradient"
+        className="app__page"
         ref={(el) => { this.container = el; }}
         disabled
       >
@@ -142,7 +143,8 @@ class Home extends Component {
           disabled
           // toTop
         >
-          <Wave className="fill" />
+          {/* <Wave className="fill" /> */}
+          <Visualizer />
           <div className="result-string">
             {resultString}
           </div>
