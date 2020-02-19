@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
 
 import { ROUTES } from './components/templates';
-import News from './components/templates/news';
+import Home from './components/templates/home';
 import NotFound from './components/templates/notfound';
 
 const SUB = [];
@@ -19,7 +19,7 @@ const Routes = ({ history }) => {
     <TransitionGroup id="Transition" className="app__group fill">
       <CSSTransition key={location.pathname} timeout={timeout} classNames="fade" appear>
         <Switch location={location}>
-          <Route path="/" exact component={News} />
+          <Route path="/" exact component={Home} />
           {
             ROUTES.map(obj => (
               <Route key={obj.url} path={obj.url} exact component={obj.component} />
