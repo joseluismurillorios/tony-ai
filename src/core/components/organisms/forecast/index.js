@@ -1,9 +1,25 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import Clock from '../../atoms/clock';
 import Slider from '../../molecules/glide';
 import { getWeatherIcon, getWeatherDateObj } from '../../../helpers/helper-weather';
+
+const config = {
+  perView: 3,
+  bullets: false,
+  type: 'carousel',
+  breakpoints: {
+    541: {
+      perView: 2,
+    },
+    768: {
+      perView: 2,
+    },
+    979: {
+      perView: 3,
+    },
+  },
+};
 
 class Forecast extends Component {
   constructor(props) {
@@ -47,6 +63,9 @@ class Forecast extends Component {
 
   render() {
     const {
+      hidden,
+    } = this.props;
+    const {
       humidity,
       icon,
       temp,
@@ -58,19 +77,14 @@ class Forecast extends Component {
     return (
       <div className="widget weather">
         <div className="weather-box">
-          <h5 className="mt-0">
-            Tijuana
-            <small>
-              <span>    |    </span>
-              <Clock />
-            </small>
-          </h5>
           <div className="weather-info clearfix pt-10">
             <div className="weather-main">
               <ul className="week-days day-info">
                 <li>
-                  {humidity}
-                  <small> %</small>
+                  <span>
+                    {humidity}
+                    <small> %</small>
+                  </span>
                   <span><small>Humedad</small></span>
                 </li>
               </ul>
@@ -78,7 +92,7 @@ class Forecast extends Component {
             <div className="weather-main weather-temp">
               <div className="weather-icon text-center">
                 <i className={icon} />
-                <span className="temp-main pt-10">
+                <span className="temp-main mt-10">
                   {temp}
                   °
                   {gC}
@@ -95,14 +109,15 @@ class Forecast extends Component {
               </ul>
             </div>
           </div>
-          <div className="text-center mb-20">
-            <span className="btn btn-color btn-sm rounded uppercase">{description}</span>
+          <div className="text-center">
+            <span className="btn btn-gradient btn-sm rounded uppercase">{description}</span>
           </div>
           {
-            forecastMetric && forecastMetric.list && (
+            forecastMetric && forecastMetric.list && !hidden && (
               <Slider
-                className="week-days owl-theme"
+                className="week-days owl-theme mt-40"
                 slideBy="page"
+                config={config}
               >
                 {
                   forecastMetric.list.map((obj) => {
@@ -133,12 +148,14 @@ class Forecast extends Component {
 
 Forecast.defaultProps = {
   forecast: {},
+  hidden: false,
 };
 
 Forecast.propTypes = {
   forecast: PropTypes.objectOf(
     PropTypes.any,
   ),
+  hidden: PropTypes.bool,
 };
 
 export default Forecast;

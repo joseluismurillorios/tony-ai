@@ -6,14 +6,19 @@ import debounce from 'lodash/debounce';
 
 import Scrollable from '../../atoms/scrollable';
 
-// import Wave from '../../atoms/aether';
-
 import { setLoader } from '../../../redux/actions/common';
 
 import { Speech, SpeechRec } from '../../../helpers/helper-speech';
 import { noteValues, arpeggiator } from '../../../helpers/helper-sound';
+
+import Container from '../../atoms/container';
+import Section from '../../atoms/section';
+import Row from '../../atoms/row';
 import Dropdown from '../../atoms/dropdown';
+import Clock from '../../atoms/clock';
 import Visualizer from '../../molecules/visualizer';
+import Forecast from '../../organisms/forecast';
+import Phase from '../../organisms/phase';
 
 const chordSuccess = [
   noteValues.C5,
@@ -123,6 +128,17 @@ class Home extends Component {
   }
 
   render() {
+    const { forecast } = this.props;
+    const {
+      moonPhase,
+      earthPhase,
+      earthPhases,
+      moonPhases,
+      moonCurrent,
+      earthCurrent,
+      moonPhaseName,
+      earthPhaseName,
+    } = forecast;
     const {
       resultString,
       voices,
@@ -141,14 +157,74 @@ class Home extends Component {
           id="MainScroll"
           style={{ backgroundColor: 'transparent' }}
           disabled
-          // toTop
+        // toTop
         >
           {/* <Wave className="fill" /> */}
           <Visualizer />
           <div className="result-string">
             {resultString}
           </div>
-          <div className="voices">
+          <Section className="pt-0 pb-0">
+            <Container>
+              <Row>
+                <div id="Dashboard">
+                  {
+                    forecast && (
+                      <div className="dashboard-box">
+                        <Forecast
+                          forecast={forecast}
+                          hidden
+                        />
+                      </div>
+                    )
+                  }
+
+                  {
+                    earthPhases && (
+                      <div className="dashboard-box">
+                        <Phase
+                          type="earth"
+                          heading="Fase Solar"
+                          subtitle={earthPhaseName}
+                          desc={[
+                            <Clock noseconds />,
+                            `Día: ${earthPhase.elapsed}`,
+                            `Restantes: ${earthPhase.remaining}`,
+                          ]}
+                          phases={earthPhases}
+                          current={earthCurrent}
+                          hidden
+                        />
+                      </div>
+                    )
+                  }
+
+                  {
+                    moonPhase && (
+                      <div className="dashboard-box">
+                        <Phase
+                          type="moon"
+                          heading="Fase Lunar"
+                          subtitle={moonPhaseName}
+                          desc={[
+                            `Fase: ${moonPhase.phase.toFixed(2)}`,
+                            `Luz: ${moonPhase.illuminated.toFixed(2)}%`,
+                            `Edad: ${moonPhase.age.toFixed(2)}`,
+                          ]}
+                          phases={moonPhases}
+                          current={moonCurrent}
+                          hidden
+                        />
+                      </div>
+                    )
+                  }
+
+                </div>
+
+              </Row>
+            </Container>
+          </Section>
+          <div className="voices hidden">
             <Dropdown id="Voices" items={items} onChange={this.onVoices} value={selectedVoice} />
           </div>
         </Scrollable>
@@ -163,12 +239,14 @@ Home.defaultProps = {
 
 Home.propTypes = {
   loaderSet: PropTypes.func,
+  forecast: PropTypes.objectOf(
+    PropTypes.any,
+  ).isRequired,
 };
 
 const mapStateToProps = state => ({
+  forecast: state.forecast,
   common: state.common,
-  esri: state.esri,
-  info: state.info,
 });
 
 const mapDispatchToProps = {

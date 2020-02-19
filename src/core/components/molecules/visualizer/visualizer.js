@@ -144,8 +144,8 @@ const LoopVisualizer = (scene, analyser, mic) => {
     }
 
     // auto tilt
-    loopHolder.rotation.x = perlin.noise(noisePos * 0.25, 0, 0) * Math.PI * 0.6;
-    loopHolder.rotation.y = perlin.noise(noisePos * 0.25, 10, 0) * Math.PI * 0.6;
+    loopHolder.rotation.x = perlin.noise(noisePos * 0.5, 0, 0) * Math.PI * 0.3;
+    loopHolder.rotation.y = perlin.noise(noisePos * 0.5, 10, 0) * Math.PI * 0.3;
   }
 
   return {

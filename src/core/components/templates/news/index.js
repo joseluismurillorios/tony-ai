@@ -8,8 +8,8 @@ import { connect } from 'react-redux';
 import PageTitle from '../../atoms/page-title';
 import Container from '../../atoms/container';
 import Section from '../../atoms/section';
-import Scrollable from '../../atoms/scrollable';
 import Row from '../../atoms/row';
+import Scrollable from '../../atoms/scrollable';
 import Clock from '../../atoms/clock';
 
 import Footer from '../../organisms/footer';

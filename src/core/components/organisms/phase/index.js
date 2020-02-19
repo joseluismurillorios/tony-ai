@@ -47,18 +47,29 @@ const Phase = ({
   desc,
   phases,
   current,
+  heading,
+  hidden,
 }) => {
   const id = `${type}Current`;
   const config = type === 'earth' ? earthConfig : moonConfig;
   return (
     <div className="widget weather">
-      <h3 className="widget-title heading relative heading-small uppercase style-2 text-center bottom-line pt-10 hidden-xs">
-        {title}
-      </h3>
+      {
+        title && (
+          <h3 className="widget-title heading relative heading-small uppercase style-2 text-center bottom-line pt-10 hidden-xs">
+            {title}
+          </h3>
+        )
+      }
       <div className="weather-box">
         <div className="weather-wrap clearfix">
           <div className="weather-main left">
             <ul className="capitalize">
+              {
+                heading && (
+                  <span>{heading}</span>
+                )
+              }
               <h5>{subtitle}</h5>
               <li>{desc[0]}</li>
               <li>{desc[1]}</li>
@@ -69,18 +80,22 @@ const Phase = ({
             <Globe id={id} type={type} age={0} phase={current} />
           </div>
         </div>
-        <Glides className="week-days" config={config}>
-          {
-            Object.keys(phases).map(el => (
-              <li key={phases[el].id} className="week-day capitalize">
-                <span><small>{phases[el].name}</small></span>
-                <Globe id={phases[el].id} type={type} phase={phases[el].phase} size="60px" />
-                <span>{phases[el].day}</span>
-                <span><small>{phases[el].hour}</small></span>
-              </li>
-            ))
-          }
-        </Glides>
+        {
+          !hidden && (
+            <Glides className="week-days" config={config}>
+              {
+                Object.keys(phases).map(el => (
+                  <li key={phases[el].id} className="week-day capitalize">
+                    <span><small>{phases[el].name}</small></span>
+                    <Globe id={phases[el].id} type={type} phase={phases[el].phase} size="60px" />
+                    <span>{phases[el].day}</span>
+                    <span><small>{phases[el].hour}</small></span>
+                  </li>
+                ))
+              }
+            </Glides>
+          )
+        }
       </div>
     </div>
   );
@@ -88,16 +103,21 @@ const Phase = ({
 
 Phase.defaultProps = {
   type: 'earth',
-  title: 'Fase Solar',
+  title: false,
   desc: ['Gracias', 'Por', 'Esperar'],
   phases: {},
   subtitle: (<span>Cargando</span>),
   current: 0,
+  heading: false,
+  hidden: false,
 };
 
 Phase.propTypes = {
   type: PropTypes.string,
-  title: PropTypes.string,
+  title: PropTypes.oneOfType([
+    PropTypes.bool,
+    PropTypes.string,
+  ]),
   desc: PropTypes.arrayOf(PropTypes.any),
   phases: PropTypes.objectOf(
     PropTypes.any,
@@ -107,6 +127,11 @@ Phase.propTypes = {
     PropTypes.string,
   ]),
   current: PropTypes.number,
+  heading: PropTypes.oneOfType([
+    PropTypes.bool,
+    PropTypes.string,
+  ]),
+  hidden: PropTypes.bool,
 };
 
 export default Phase;
