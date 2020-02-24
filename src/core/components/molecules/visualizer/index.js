@@ -2,8 +2,9 @@
 import React, { Component } from 'react';
 import * as THREE from 'three';
 import { tween } from 'shifty';
-// import PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 import $ from '../../../helpers/helper-jquery';
+// import requestAnimationFrame from './requestAnimationFrame';
 
 import loopVisualizer from './visualizer';
 
@@ -45,17 +46,59 @@ class Visualizer extends Component {
     this.initAudio = this.initAudio.bind(this);
     this.initMic = this.initMic.bind(this);
     this.animate = this.animate.bind(this);
+    this.onInit = this.onInit.bind(this);
   }
 
   componentDidMount() {
     const {
+      setRef,
+    } = this.props;
+    const {
       isWebgl,
     } = this.state;
+    setRef(this);
     if (!isWebgl) {
       this.container.innerHTML = 'Your graphics card does not seem to support WebGL';
       return;
     }
 
+    document.onselectStart = () => false;
+
+    $(document).mouseleave(() => {
+      tween({
+        from: { x: this.mouseX, y: this.mouseY },
+        to: { x: -0.5, y: -0.5 },
+        duration: 1500,
+        easing: 'easeOutQuad',
+        step: (state) => {
+          this.mouseX = state.x;
+          this.mouseY = state.y;
+        },
+      });
+      // .then(
+      //   () => console.log('All done!'),
+      // );
+    });
+
+    document.addEventListener('mousemove', this.onDocMouseMove, false);
+    window.addEventListener('resize', this.onWindowResize, false);
+    document.addEventListener('drop', this.onDocumentDrop, false);
+    document.addEventListener('dragover', (evt) => {
+      evt.stopPropagation();
+      evt.preventDefault();
+      return false;
+    }, false);
+
+    this.onInit();
+  }
+
+  componentWillUnmount() {
+    document.removeEventListener('mousemove', this.onDocMouseMove, false);
+    window.removeEventListener('resize', this.onWindowResize, false);
+    document.removeEventListener('drop', this.onDocumentDrop, false);
+  }
+
+  onInit() {
     const {
       innerWidth,
       innerHeight,
@@ -77,34 +120,9 @@ class Visualizer extends Component {
     this.container.appendChild(this.renderer.domElement);
 
     // stop the user getting a text cursor
-    document.onselectStart = () => false;
-
-    $(document).mouseleave(() => {
-      tween({
-        from: { x: this.mouseX, y: this.mouseY },
-        to: { x: -0.5, y: -0.5 },
-        duration: 1500,
-        easing: 'easeOutQuad',
-        step: (state) => {
-          this.mouseX = state.x;
-          this.mouseY = state.y;
-        },
-      }).then(
-        () => console.log('All done!'),
-      );
-    });
-
-    document.addEventListener('mousemove', this.onDocMouseMove, false);
-    document.addEventListener('resize', this.onWindowResize, false);
-    document.addEventListener('drop', this.onDocumentDrop, false);
-    document.addEventListener('dragover', (evt) => {
-      evt.stopPropagation();
-      evt.preventDefault();
-      return false;
-    }, false);
 
     this.onWindowResize(null);
-    this.initMic();
+    // this.initMic();
   }
 
   onWindowResize() {
@@ -157,6 +175,9 @@ class Visualizer extends Component {
 
   startViz() {
     console.log('loaded');
+    const {
+      onStart,
+    } = this.props;
 
     this.visualizer = loopVisualizer(this.scene, this.analyser, this.mic);
     this.visualizer.init();
@@ -164,6 +185,7 @@ class Visualizer extends Component {
     if (!this.started) {
       this.started = true;
       this.animate();
+      onStart();
     }
   }
 
@@ -213,7 +235,12 @@ class Visualizer extends Component {
   }
 
   animate() {
-    requestAnimationFrame(this.animate);
+    // console.log('initMic', this.requestId);
+    // requestAnimationFrame(this.animate);
+    this.requestId = requestAnimationFrame(this.animate);
+    // if (!this.requestId) {
+    //   this.requestId = requestAnimationFrame(this.animate);
+    // }
     this.visualizer.update();
 
     // mouse tilt
@@ -225,6 +252,22 @@ class Visualizer extends Component {
     this.renderer.render(this.scene, this.camera);
   }
 
+  stop() {
+    const {
+      onEnd,
+    } = this.props;
+    if (this.requestId) {
+      window.cancelAnimationFrame(this.requestId);
+      this.requestId = undefined;
+      this.started = false;
+      this.visualizer.reset();
+      this.renderer.render(this.scene, this.camera);
+      // this.onInit();
+      // this.visualizer.update();
+      onEnd();
+    }
+  }
+
   render() {
     return (
       <div id="Visualizer" ref={(el) => { this.container = el; }} />
@@ -232,8 +275,16 @@ class Visualizer extends Component {
   }
 }
 
-Visualizer.propTypes = {
+Visualizer.defaultProps = {
+  setRef: () => {},
+  onStart: () => {},
+  onEnd: () => {},
+};
 
+Visualizer.propTypes = {
+  setRef: PropTypes.func,
+  onStart: PropTypes.func,
+  onEnd: PropTypes.func,
 };
 
 export default Visualizer;

@@ -19,6 +19,7 @@ import Clock from '../../atoms/clock';
 import Visualizer from '../../molecules/visualizer';
 import Forecast from '../../organisms/forecast';
 import Phase from '../../organisms/phase';
+import CircularMenu from '../../molecules/circular-menu';
 
 const chordSuccess = [
   noteValues.C5,
@@ -38,6 +39,8 @@ class Home extends Component {
       resultString: '',
       voices: [],
       selectedVoice: '',
+      menuOpened: false,
+      visual: false,
     };
 
     this.ctx = new (window.AudioContext || window.webkitAudioContext)();
@@ -59,6 +62,12 @@ class Home extends Component {
     setTimeout(() => {
       loaderSet(false);
     }, 500);
+    this.wow = new window.WOW({
+      offset: 50,
+      mobile: false,
+    });
+
+    this.wow.init();
     this.speechRec = new SpeechRec('es-MX');
     this.speechRec.onStart = this.onStart;
     this.speechRec.onEnd = this.onEnd;
@@ -67,6 +76,7 @@ class Home extends Component {
     this.speech = new Speech(this.onLoad);
     // this.speech.started(this.startSpeaking);
     this.speech.ended(this.endSpeaking);
+    // this.visualizer.initMic();
   }
 
   onLoad() {
@@ -143,6 +153,8 @@ class Home extends Component {
       resultString,
       voices,
       selectedVoice,
+      menuOpened,
+      visual,
     } = this.state;
     const items = voices.map(v => ({ id: v.name, name: v.name, lang: v.lang }));
     return (
@@ -160,7 +172,19 @@ class Home extends Component {
         // toTop
         >
           {/* <Wave className="fill" /> */}
-          <Visualizer />
+          <Visualizer
+            setRef={(el) => { this.visualizer = el; }}
+            onStart={() => {
+              this.setState({
+                visual: true,
+              });
+            }}
+            onEnd={() => {
+              this.setState({
+                visual: false,
+              });
+            }}
+          />
           <div className="result-string">
             {resultString}
           </div>
@@ -227,6 +251,24 @@ class Home extends Component {
           <div className="voices hidden">
             <Dropdown id="Voices" items={items} onChange={this.onVoices} value={selectedVoice} />
           </div>
+          <CircularMenu
+            opened={menuOpened}
+            visual={visual}
+            onVisualToggle={() => {
+              if (this.visualizer) {
+                if (this.visualizer.started) {
+                  this.visualizer.stop();
+                } else {
+                  this.visualizer.initMic();
+                }
+              }
+            }}
+            onToggleOpened={() => {
+              this.setState({
+                menuOpened: !menuOpened,
+              });
+            }}
+          />
         </Scrollable>
       </div>
     );

@@ -8,7 +8,7 @@ import getBootstrap from './helper-bootstrap';
 // import getFlexslider from './helper-flexslider';
 import getEasing from './helper-easing';
 // import getScrolling from './helper-localscroll';
-// import getWow from './helper-wow';
+import getWow from './helper-wow';
 import getMagnific from './helper-magnific';
 // import getIsotope from './helper-isotope';
 
@@ -21,7 +21,7 @@ getBootstrap(jQuery);
 getEasing(jQuery);
 // getScrolling(jQuery);
 getMagnific(jQuery);
-// getWow();
+getWow();
 // getIsotope(jQuery);
 
 export default jQuery;

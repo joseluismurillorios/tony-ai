@@ -1,4 +1,4 @@
-@keyframes fadeIn {
+@keyframes fadeInPage {
   0% {
       opacity: 0.0;       
   }
@@ -7,7 +7,7 @@
   }       
 }
 
-@keyframes fadeOut {
+@keyframes fadeOutPage {
   0% {
       opacity: 1;       
   }
@@ -18,7 +18,7 @@
 
 .fade-appear {
   &.fade-appear-active {
-    animation-name: fadeIn;
+    animation-name: fadeInPage;
     animation-duration: 1000ms;   
     animation-timing-function: ease-in-out; 
     visibility: visible !important; 
@@ -50,7 +50,7 @@
 .fast-appear {
   animation-duration: 200ms;   
   &.fast-appear-active {
-    animation-name: fadeIn;
+    animation-name: fadeInPage;
     animation-duration: 200ms;   
     animation-timing-function: ease-in-out; 
     visibility: visible !important; 
@@ -79,7 +79,7 @@
 .slow-appear {
   animation-duration: 500ms;   
   &.slow-appear-active {
-    animation-name: fadeIn;
+    animation-name: fadeInPage;
     animation-duration: 500ms;   
     animation-timing-function: ease-in-out; 
     visibility: visible !important; 

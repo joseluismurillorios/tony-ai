@@ -15,7 +15,7 @@ import ImprovedNoise from './improvedNoise';
 const LoopVisualizer = (scene, analyser, mic) => {
   const RINGCOUNT = 30;
   const GROWTH = 1.04;
-  const INIT_RADIUS = 50;
+  const INIT_RADIUS = 75;
   const SEGMENTS = 512;
   const VOL_SENS = 2;
   const BIN_COUNT = 512;
@@ -94,6 +94,7 @@ const LoopVisualizer = (scene, analyser, mic) => {
     // analyser.smoothingTimeConstant = 0.1;
     analyser.getByteFrequencyData(freqByteData);
     analyser.getByteTimeDomainData(timeByteData);
+    // console.log('update', noisePos, freqByteData, timeByteData);
 
     // get average level
     let sum = 0;
@@ -148,10 +149,16 @@ const LoopVisualizer = (scene, analyser, mic) => {
     loopHolder.rotation.y = perlin.noise(noisePos * 0.5, 10, 0) * Math.PI * 0.3;
   }
 
+  function reset() {
+    noisePos = 0;
+    remove();
+  }
+
   return {
     init,
     update,
     remove,
+    reset,
     loopHolder,
   };
 };

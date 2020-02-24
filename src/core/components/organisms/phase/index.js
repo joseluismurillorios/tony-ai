@@ -53,7 +53,7 @@ const Phase = ({
   const id = `${type}Current`;
   const config = type === 'earth' ? earthConfig : moonConfig;
   return (
-    <div className="widget weather">
+    <div className="widget weather wow fadeIn" data-wow-duration="1s" data-wow-delay="0.6s">
       {
         title && (
           <h3 className="widget-title heading relative heading-small uppercase style-2 text-center bottom-line pt-10 hidden-xs">
