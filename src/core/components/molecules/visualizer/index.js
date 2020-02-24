@@ -225,6 +225,7 @@ class Visualizer extends Component {
     navigator.mediaDevices
       .getUserMedia({ audio: true, video: false })
       .then((stream) => {
+        window.streamReference = stream;
         this.audioContext = new window.AudioContext();
         // const gainNode = context.createGain();
 
@@ -262,8 +263,17 @@ class Visualizer extends Component {
       this.started = false;
       this.visualizer.reset();
       this.renderer.render(this.scene, this.camera);
-      // this.onInit();
-      // this.visualizer.update();
+      if (window.streamReference) {
+        window.streamReference.getAudioTracks().forEach((track) => {
+          track.stop();
+        });
+
+        window.streamReference.getVideoTracks().forEach((track) => {
+          track.stop();
+        });
+
+        window.streamReference = null;
+      }
       onEnd();
     }
   }
