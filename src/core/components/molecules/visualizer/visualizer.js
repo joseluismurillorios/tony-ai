@@ -13,11 +13,11 @@ import ImprovedNoise from './improvedNoise';
 // };
 
 const LoopVisualizer = (scene, analyser, mic) => {
-  const RINGCOUNT = 30;
-  const GROWTH = 1.04;
-  const INIT_RADIUS = 75;
+  const RINGCOUNT = 20;
+  const GROWTH = 1.05;
+  const INIT_RADIUS = 90;
   const SEGMENTS = 512;
-  const VOL_SENS = 2;
+  const VOL_SENS = 3;
   const BIN_COUNT = 512;
 
   let rings = [];
@@ -80,6 +80,7 @@ const LoopVisualizer = (scene, analyser, mic) => {
       levels.push(0);
       colors.push(0);
     }
+    loopHolder.rotation.z = Math.PI * 0.5;
   }
 
   function remove() {
@@ -109,7 +110,8 @@ const LoopVisualizer = (scene, analyser, mic) => {
     levels.push(scaledAverage * aveOffset);
 
     // get noise color posn
-    noisePos += 0.005;
+    noisePos += 0.002;
+    // noisePos += 0.005;
     const n = Math.abs(perlin.noise(noisePos, 0, 0));
     colors.push(n);
 
@@ -119,6 +121,10 @@ const LoopVisualizer = (scene, analyser, mic) => {
 
 
     // write current waveform into all rings
+    // for (let j = 0; j < SEGMENTS / 2; j += 1) {
+    //   loopGeom.vertices[j].z = (timeByteData[j] - 128);// stretch by 2
+    //   loopGeom.vertices[SEGMENTS - j].z = (timeByteData[j] - 128);
+    // }
     for (let j = 0; j < SEGMENTS; j += 1) {
       loopGeom.vertices[j].z = (timeByteData[j] - 128);// stretch by 2
     }
@@ -147,6 +153,7 @@ const LoopVisualizer = (scene, analyser, mic) => {
     // auto tilt
     loopHolder.rotation.x = perlin.noise(noisePos * 0.5, 0, 0) * Math.PI * 0.3;
     loopHolder.rotation.y = perlin.noise(noisePos * 0.5, 10, 0) * Math.PI * 0.3;
+    // loopHolder.rotation.z = noisePos * (-2 * Math.PI);
   }
 
   function reset() {

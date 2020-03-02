@@ -4,7 +4,7 @@
   position: fixed;
   // width: 100%;
   // height: 100%;
-  z-index: 999;
+  z-index: 1301;
   left: 0;
   top: 0;
   right: 0;
@@ -70,7 +70,7 @@
   height: 60px;
   animation: ball-scale-multiple 1s 0s linear infinite;
   
-  background-color: $primary;
+  background-color: $light;
 
   // background-color: var(--primary);
 }

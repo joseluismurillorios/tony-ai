@@ -131,6 +131,7 @@ Phase.propTypes = {
   ]),
   current: PropTypes.number,
   heading: PropTypes.oneOfType([
+    PropTypes.element,
     PropTypes.bool,
     PropTypes.string,
   ]),

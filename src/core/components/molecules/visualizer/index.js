@@ -263,6 +263,9 @@ class Visualizer extends Component {
       this.started = false;
       this.visualizer.reset();
       this.renderer.render(this.scene, this.camera);
+      if (this.source.stop) {
+        this.source.stop(this.audioContext.currentTime + 1);
+      }
       if (window.streamReference) {
         window.streamReference.getAudioTracks().forEach((track) => {
           track.stop();

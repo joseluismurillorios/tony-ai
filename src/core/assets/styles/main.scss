@@ -398,14 +398,18 @@ button.toast-close {
         .weather-wrap {
           display: flex;
           justify-content: space-between;
-          > div {
-            flex: 1;
-          }
+          // > div {
+          //   flex: 1;
+          // }
           .left {
             text-align: left;
           }
           .right {
             text-align: center;
+          }
+          ul li {
+            text-transform: uppercase;
+            letter-spacing: 1px;
           }
         }
       }
@@ -611,6 +615,7 @@ button.toast-close {
     border-radius: 22px;
     overflow: hidden;
     margin-bottom: 15px;
+    margin-left: 15px;
     &:last-child {
       margin-bottom: 0;
     }
@@ -633,6 +638,7 @@ button.toast-close {
         font-size: 13px;
         text-transform: uppercase;
         margin: 2px 0;
+        margin-bottom: 5px;
       }
     }
   }
@@ -677,9 +683,6 @@ button.toast-close {
 }
 
 @media (max-width: 768px) {
-  .dashboard-box {
-    margin-left: 15px;
-  }
 }
 
 .buttons-holder .btn-lg.btn-white {

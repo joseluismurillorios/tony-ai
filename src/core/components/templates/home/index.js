@@ -12,7 +12,6 @@ import { setLoader } from '../../../redux/actions/common';
 import { Speech, SpeechRec } from '../../../helpers/helper-speech';
 import { noteValues, arpeggiator } from '../../../helpers/helper-sound';
 
-import Container from '../../atoms/container';
 import Section from '../../atoms/section';
 import Row from '../../atoms/row';
 import Dropdown from '../../atoms/dropdown';
@@ -68,7 +67,7 @@ class Home extends Component {
 
   componentDidMount() {
     const { loaderSet } = this.props;
-    loaderSet(true);
+    loaderSet('bg-gradient-02');
     setTimeout(() => {
       loaderSet(false);
     }, 500);
@@ -216,7 +215,7 @@ class Home extends Component {
             {resultString}
           </div>
           <Section className="pt-0 pb-0">
-            <Container>
+            <div className="container-fluid">
               <Row>
                 <div id="Dashboard">
                   {
@@ -225,10 +224,10 @@ class Home extends Component {
                         <Phase
                           type="earth"
                           size="80px"
-                          heading="Fase Solar"
+                          heading={<Clock noseconds format="dddd hh:mm A" />}
                           subtitle={earthPhaseName}
                           desc={[
-                            <Clock noseconds />,
+                            <Clock noseconds format="MMMM DD [del] YYYY" />,
                             `Día: ${earthPhase.elapsed}`,
                             `Restantes: ${earthPhase.remaining}`,
                           ]}
@@ -264,7 +263,7 @@ class Home extends Component {
                 </div>
 
               </Row>
-            </Container>
+            </div>
           </Section>
           <div className="voices hidden">
             <Dropdown id="Voices" items={items} onChange={this.onVoices} value={selectedVoice} />
@@ -313,7 +312,7 @@ class Home extends Component {
             <Modal
               opened={modal === 'hora'}
               className="modal-info"
-              title="Hora en Tijuana"
+              title={earthPhaseName}
               onCancel={() => {
                 this.setState({
                   modal: '',
@@ -323,10 +322,11 @@ class Home extends Component {
               <Wow className="dashboard-box" show={modal === 'hora'}>
                 <Phase
                   type="earth"
-                  heading="Fase Solar"
-                  subtitle={earthPhaseName}
+                  size="200px"
+                  heading={<Clock noseconds format="dddd" />}
+                  subtitle={<Clock noseconds format="hh:mm A" />}
                   desc={[
-                    <Clock noseconds />,
+                    <Clock noseconds format="MMMM DD [del] YYYY" />,
                     `Día: ${earthPhase.elapsed}`,
                     `Restantes: ${earthPhase.remaining}`,
                   ]}
@@ -352,6 +352,7 @@ class Home extends Component {
               <Wow className="dashboard-box" show={modal === 'fase'}>
                 <Phase
                   type="moon"
+                  size="200px"
                   heading="Fase Lunar"
                   subtitle={moonPhaseName}
                   desc={[

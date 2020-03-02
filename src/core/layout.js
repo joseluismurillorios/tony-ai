@@ -158,7 +158,10 @@ class Layout extends Component {
           classNames="fade"
           unmountOnExit
         >
-          <Loader style={{ top }} className={`preloader ${loaderClass}`} />
+          <Loader
+            // style={{ top }}
+            className={`preloader ${loaderClass}`}
+          />
         </CSSTransition>
         {
           showInstallMessage && common.showInstallMessage && (
