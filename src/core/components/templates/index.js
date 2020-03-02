@@ -3,19 +3,33 @@ import Home from './home';
 
 export const ROUTES = [
   {
-    url: '/inicio',
+    url: '#/',
     component: Home,
     name: 'Inicio',
     items: [
     ],
   },
-  // {
-  //   url: '/clima',
-  //   component: News,
-  //   name: 'Clima',
-  //   items: [
-  //   ],
-  // },
+  {
+    url: '#/?display=hora',
+    component: Home,
+    name: 'Hora',
+    items: [
+    ],
+  },
+  {
+    url: '#/?display=clima',
+    component: Home,
+    name: 'Clima',
+    items: [
+    ],
+  },
+  {
+    url: '#/?display=fase',
+    component: Home,
+    name: 'Fase',
+    items: [
+    ],
+  },
 ];
 
 export default ROUTES;

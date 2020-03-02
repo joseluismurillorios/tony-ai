@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import debounce from 'lodash/debounce';
+import * as qs from 'query-string';
 
 import Scrollable from '../../atoms/scrollable';
 
@@ -20,6 +21,8 @@ import Visualizer from '../../molecules/visualizer';
 import Forecast from '../../organisms/forecast';
 import Phase from '../../organisms/phase';
 import CircularMenu from '../../molecules/circular-menu';
+import Modal from '../../molecules/modal';
+import Wow from '../../atoms/wow';
 
 const chordSuccess = [
   noteValues.C5,
@@ -35,12 +38,18 @@ const chordError = [
 class Home extends Component {
   constructor(props) {
     super(props);
+
+    const { location } = this.props;
+    const { search } = location;
+    const query = qs.parse(search, { ignoreQueryPrefix: true });
+
     this.state = {
       resultString: '',
       voices: [],
       selectedVoice: '',
       menuOpened: false,
       visual: false,
+      modal: query.display || '',
     };
 
     this.ctx = new (window.AudioContext || window.webkitAudioContext)();
@@ -52,6 +61,7 @@ class Home extends Component {
     this.endSpeaking = this.endSpeaking.bind(this);
     this.onEnd = this.onEnd.bind(this);
     this.onStart = this.onStart.bind(this);
+    this.onHashChanged = this.onHashChanged.bind(this);
 
     this.started = false;
   }
@@ -77,6 +87,11 @@ class Home extends Component {
     // this.speech.started(this.startSpeaking);
     this.speech.ended(this.endSpeaking);
     // this.visualizer.initMic();
+    window.addEventListener('hashchange', this.onHashChanged);
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('hashchange', this.onHashChanged);
   }
 
   onLoad() {
@@ -127,6 +142,17 @@ class Home extends Component {
     }
   }
 
+  onHashChanged(e) {
+    const { location } = this.props;
+    const { search } = location;
+    console.log(e);
+    const query = qs.parse(search, { ignoreQueryPrefix: true });
+    console.log(query);
+    this.setState({
+      modal: query.display || '',
+    });
+  }
+
   // startSpeaking() {
   //   console.log('startSpeaking');
   //   // this.speechRec.stop();
@@ -155,6 +181,7 @@ class Home extends Component {
       selectedVoice,
       menuOpened,
       visual,
+      modal,
     } = this.state;
     const items = voices.map(v => ({ id: v.name, name: v.name, lang: v.lang }));
     return (
@@ -193,21 +220,11 @@ class Home extends Component {
               <Row>
                 <div id="Dashboard">
                   {
-                    forecast && (
-                      <div className="dashboard-box">
-                        <Forecast
-                          forecast={forecast}
-                          hidden
-                        />
-                      </div>
-                    )
-                  }
-
-                  {
                     earthPhases && (
                       <div className="dashboard-box">
                         <Phase
                           type="earth"
+                          size="80px"
                           heading="Fase Solar"
                           subtitle={earthPhaseName}
                           desc={[
@@ -228,6 +245,7 @@ class Home extends Component {
                       <div className="dashboard-box">
                         <Phase
                           type="moon"
+                          size="80px"
                           heading="Fase Lunar"
                           subtitle={moonPhaseName}
                           desc={[
@@ -270,6 +288,84 @@ class Home extends Component {
             }}
           />
         </Scrollable>
+        {
+          forecast && (
+            <Modal
+              opened={modal === 'clima'}
+              className="modal-info"
+              title="Clima en Tijuana"
+              onCancel={() => {
+                this.setState({
+                  modal: '',
+                });
+              }}
+            >
+              <Wow className="dashboard-box" show={modal === 'clima'}>
+                <Forecast
+                  forecast={forecast}
+                />
+              </Wow>
+            </Modal>
+          )
+        }
+        {
+          earthPhases && (
+            <Modal
+              opened={modal === 'hora'}
+              className="modal-info"
+              title="Hora en Tijuana"
+              onCancel={() => {
+                this.setState({
+                  modal: '',
+                });
+              }}
+            >
+              <Wow className="dashboard-box" show={modal === 'hora'}>
+                <Phase
+                  type="earth"
+                  heading="Fase Solar"
+                  subtitle={earthPhaseName}
+                  desc={[
+                    <Clock noseconds />,
+                    `Día: ${earthPhase.elapsed}`,
+                    `Restantes: ${earthPhase.remaining}`,
+                  ]}
+                  phases={earthPhases}
+                  current={earthCurrent}
+                />
+              </Wow>
+            </Modal>
+          )
+        }
+        {
+          moonPhase && (
+            <Modal
+              opened={modal === 'fase'}
+              className="modal-info"
+              title="Fase Lunar"
+              onCancel={() => {
+                this.setState({
+                  modal: '',
+                });
+              }}
+            >
+              <Wow className="dashboard-box" show={modal === 'fase'}>
+                <Phase
+                  type="moon"
+                  heading="Fase Lunar"
+                  subtitle={moonPhaseName}
+                  desc={[
+                    `Fase: ${moonPhase.phase.toFixed(2)}`,
+                    `Luz: ${moonPhase.illuminated.toFixed(2)}%`,
+                    `Edad: ${moonPhase.age.toFixed(2)}`,
+                  ]}
+                  phases={moonPhases}
+                  current={moonCurrent}
+                />
+              </Wow>
+            </Modal>
+          )
+        }
       </div>
     );
   }
@@ -282,6 +378,9 @@ Home.defaultProps = {
 Home.propTypes = {
   loaderSet: PropTypes.func,
   forecast: PropTypes.objectOf(
+    PropTypes.any,
+  ).isRequired,
+  location: PropTypes.objectOf(
     PropTypes.any,
   ).isRequired,
 };

@@ -49,11 +49,12 @@ const Phase = ({
   current,
   heading,
   hidden,
+  size,
 }) => {
   const id = `${type}Current`;
   const config = type === 'earth' ? earthConfig : moonConfig;
   return (
-    <div className="widget weather wow fadeIn" data-wow-duration="1s" data-wow-delay="0.6s">
+    <div className="widget weather">
       {
         title && (
           <h3 className="widget-title heading relative heading-small uppercase style-2 text-center bottom-line pt-10 hidden-xs">
@@ -67,7 +68,7 @@ const Phase = ({
             <ul className="capitalize">
               {
                 heading && (
-                  <span>{heading}</span>
+                  <li>{heading}</li>
                 )
               }
               <h5>{subtitle}</h5>
@@ -77,7 +78,7 @@ const Phase = ({
             </ul>
           </div>
           <div className="weather-temp right text-center">
-            <Globe id={id} type={type} age={0} phase={current} />
+            <Globe id={id} type={type} age={0} phase={current} size={size} />
           </div>
         </div>
         {
@@ -103,6 +104,7 @@ const Phase = ({
 
 Phase.defaultProps = {
   type: 'earth',
+  size: '160px',
   title: false,
   desc: ['Gracias', 'Por', 'Esperar'],
   phases: {},
@@ -114,6 +116,7 @@ Phase.defaultProps = {
 
 Phase.propTypes = {
   type: PropTypes.string,
+  size: PropTypes.string,
   title: PropTypes.oneOfType([
     PropTypes.bool,
     PropTypes.string,

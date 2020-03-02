@@ -4,13 +4,13 @@ import { Route, Switch, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
 
-import { ROUTES } from './components/templates';
+// import { ROUTES } from './components/templates';
 import Home from './components/templates/home';
-import NotFound from './components/templates/notfound';
+// import NotFound from './components/templates/notfound';
 
-const SUB = [];
+// const SUB = [];
 
-ROUTES.map(o => o.items.map(s => SUB.push(s)));
+// ROUTES.map(o => o.items.map(s => SUB.push(s)));
 
 const Routes = ({ history }) => {
   const { location } = history;
@@ -20,7 +20,7 @@ const Routes = ({ history }) => {
       <CSSTransition key={location.pathname} timeout={timeout} classNames="fade" appear>
         <Switch location={location}>
           <Route path="/" exact component={Home} />
-          {
+          {/* {
             ROUTES.map(obj => (
               <Route key={obj.url} path={obj.url} exact component={obj.component} />
             ))
@@ -29,8 +29,8 @@ const Routes = ({ history }) => {
             SUB.map(obj => (
               <Route key={obj.url} path={obj.url} exact component={obj.component} />
             ))
-          }
-          <Route path="*" exact component={NotFound} />
+          } */}
+          <Route path="*" exact component={Home} />
         </Switch>
       </CSSTransition>
     </TransitionGroup>

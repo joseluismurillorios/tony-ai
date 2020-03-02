@@ -29,11 +29,12 @@ const NavItem = ({
 NavItem.defaultProps = {
   onClick: () => {},
   className: '',
+  exact: true,
 };
 
 NavItem.propTypes = {
   to: PropTypes.string.isRequired,
-  exact: PropTypes.bool.isRequired,
+  exact: PropTypes.bool,
   children: PropTypes.node.isRequired,
   onClick: PropTypes.func,
   className: PropTypes.string,

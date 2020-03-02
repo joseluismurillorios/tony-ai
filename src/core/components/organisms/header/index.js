@@ -11,7 +11,6 @@ import { debounce } from '../../../helpers/helper-util';
 import assets from '../../../assets';
 
 import NavItem from './nav-item';
-import Clock from '../../atoms/clock';
 
 class Header extends Component {
   constructor(props) {
@@ -32,16 +31,17 @@ class Header extends Component {
               <a href="#" className="dropdown-toggle" data-toggle="dropdown">{path.name}</a>
             )
             : (
-              <NavItem
-                key={path.url}
-                exact
-                to={path.url}
-                onClick={() => {
-                  $('#MainScroll').scrollTop(0);
-                }}
-              >
-                {path.name}
-              </NavItem>
+              // <NavItem
+              //   key={path.url}
+              //   exact
+              //   to={path.url}
+              //   onClick={() => {
+              //     $('#MainScroll').scrollTop(0);
+              //   }}
+              // >
+              //   {path.name}
+              // </NavItem>
+              <a href={path.url}>{path.name}</a>
             )
         }
         {
@@ -140,8 +140,7 @@ class Header extends Component {
     const { temp } = this.getTemp();
     return (
       <header
-        className="nav-type-3"
-        ref={setRef}
+        className="nav-type-2"
         id="Header"
       >
         {
@@ -149,9 +148,9 @@ class Header extends Component {
             <div className="app__statusbar" />
           )
         }
-        <nav className="navbar navbar-static-top">
-          <div className="navigation">
-            <div className="container relative">
+        <nav className="navbar navbar-fixed-top" ref={setRef}>
+          <div className="navigation-overlay dark">
+            <div className="container-fluid semi-fluid relative">
               <div className="row">
                 <div className="navbar-header">
                   {
@@ -163,13 +162,6 @@ class Header extends Component {
                       </div>
                     )
                   }
-                  <div className="nav-cart mobile-cart right hidden-lg hidden-md">
-                    <div className="cart-outer">
-                      <div className="cart-inner">
-                        <i className="implanf-person" />
-                      </div>
-                    </div>
-                  </div>
                   <button type="button" className="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse">
                     <span className="sr-only">Toggle navigation</span>
                     <span className="icon-bar" />
@@ -177,45 +169,23 @@ class Header extends Component {
                     <span className="icon-bar" />
                   </button>
                 </div>
-                <div className="header-wrap col-md-12">
-
-                  <div className="nav-search type-2">
-                    <div className="logo-wrap">
-                      <NavItem
-                        exact
-                        to="/inicio"
-                        onClick={() => {
-                          $('#MainScroll').scrollTop(0);
-                        }}
-                      >
-                        {/* <Logo /> */}
-                        <img src={assets.navbarSmall} alt="TonyAI Web" />
-                      </NavItem>
-                    </div>
-                  </div>
-
-                  <div className="logo-container" />
-
-                  <div className="nav-cart-wrap style-2 hidden-sm hidden-xs">
-                    {
-                      temp && (
-                        <div className="nav-cart right pl-10">
-                          <span>
-                            {temp}
-                            °
-                            <small> C</small>
-                          </span>
-                        </div>
-                      )
-                    }
-                    <div className="nav-cart right pl-10">
-                      <Clock noseconds />
-                    </div>
+                <div className="logo-container">
+                  <div className="logo-wrap">
+                    <NavItem
+                      exact
+                      to="/inicio"
+                      onClick={() => {
+                        $('#MainScroll').scrollTop(0);
+                      }}
+                    >
+                      {/* <Logo /> */}
+                      <img src={assets.navbarLight} alt="TonyAI Web" width="120px" />
+                    </NavItem>
                   </div>
                 </div>
-                <div className="col-md-12 nav-wrap">
+                <div className="col-md-9 nav-wrap right">
                   <div className="collapse navbar-collapse" id="navbar-collapse" style={{ maxHeight: '910px' }}>
-                    <ul className="nav navbar-nav">
+                    <ul className="nav navbar-nav local-scroll navbar-right">
                       {
                         this.router
                       }

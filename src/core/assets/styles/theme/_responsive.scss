@@ -45,6 +45,9 @@ $font_0: 'implanf';
 		background-attachment: scroll !important;
 		background-position: 50% 50% !important;
 	}
+	.nav-type-2 .navbar {
+		min-height: 52px;
+	}
 	.navbar {
 		min-height: 52px;
 		.navbar-nav .dropdown > a:after {

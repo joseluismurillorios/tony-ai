@@ -1587,6 +1587,10 @@ p {
 	}
 	.navbar-nav > li > a {
 		font-family: $font_2, $font_1;
+		color: $light;
+		&:hover, &:active, &:focus {
+			background-color: transparent;
+		}
 	}
 	.logo-wrap > a {
 		transition: all 0.3s ease-in-out;
@@ -5675,6 +5679,7 @@ img {
 }
 .modal-dialog {
 	margin-top: 7%;
+	z-index: 1300;
 }
 .modal-content {
 	border-radius: 0;

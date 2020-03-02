@@ -6,7 +6,7 @@
 @import "foundation/variables";
 
 @import "theme/bootstrap";
-@import "theme/maps";
+// @import "theme/maps";
 
 @import "foundation/colors";
 @import "foundation/page-transition";
@@ -337,11 +337,89 @@ button.toast-close {
   border: 1px solid $danger !important;
 }
 
-@media (min-width: 768px) {
-  .modal-dialog {
-      width: 600px;
-      margin: 30px auto;
+// @media (min-width: 768px) {
+//   .modal-dialog {
+//       width: 600px;
+//       margin: 30px auto;
+//   }
+// }
+
+.modal-content {
+  border-radius: 1px;
+}
+
+.widget .weather {
+  opacity: 0;
+}
+
+.modal-info {
+  position: absolute;
+  .modal-backdrop {
+    position: absolute;
+    &.in {
+      opacity: 0.0;
+    }
   }
+  .modal-content {
+    box-shadow: 0 5px 15px rgba(0,0,0,.1);
+    border: 1px solid rgba(0,0,0,0.0);
+    border-radius: 22px;
+    .modal-header {
+      padding: 15px 18px;
+      // border-bottom: 0;
+      // position: absolute;
+      // width: 100%;
+      // top: 0;
+      .modal-title {
+        text-transform: capitalize;
+      }
+      .close {
+        margin-top: 3px;
+      }
+    }
+    .modal-body {
+      padding: 15px 18px;
+      padding-top: 0;
+      // .dashboard-box {
+      //   opacity: 0;
+      // }
+      .weather-box {
+        background-color: transparent;
+        padding: 2vmin;
+        .weather-desc {
+          margin-bottom: 30px;
+        }
+        .glide {
+          margin-top: 15px;
+        }
+        .weather-icon i {
+          margin-bottom: 15px;
+        }
+        .weather-wrap {
+          display: flex;
+          justify-content: space-between;
+          > div {
+            flex: 1;
+          }
+          .left {
+            text-align: left;
+          }
+          .right {
+            text-align: center;
+          }
+        }
+      }
+    }
+  }
+}
+
+.weather-main.left {
+  min-width: 130px;
+}
+
+.weather-wrap.clearfix {
+  display: flex;
+  align-items: center;
 }
 
 .flex-center {
@@ -526,13 +604,36 @@ button.toast-close {
   // justify-content: space-between;
   overflow-y: auto;
   overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
   .dashboard-box {
-    min-width: 340px;
-    border-radius: 3px;
+    border-radius: 22px;
     overflow: hidden;
     margin-bottom: 15px;
     &:last-child {
       margin-bottom: 0;
+    }
+    .weather-box {
+      padding: 30px;
+      .glide {
+        margin-top: 30px;
+      }
+    }
+    .weather-main.left {
+      min-width: 140px;
+      li, span {
+        font-size: 11px;
+        padding: 0;
+        line-height: 12px;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+      }
+      h5 {
+        font-size: 13px;
+        text-transform: uppercase;
+        margin: 2px 0;
+      }
     }
   }
 }
@@ -541,13 +642,13 @@ button.toast-close {
   letter-spacing: -10px;
 }
 
-@media (max-height: 840px) {
-  .dashboard-box {
-    &:last-child {
-     display: none;
-    }
-  }
-}
+// @media (max-height: 840px) {
+//   .dashboard-box {
+//     &:last-child {
+//      display: none;
+//     }
+//   }
+// }
 
 @media (max-width: 991px){
   .navbar-nav > li > a {
@@ -572,6 +673,12 @@ button.toast-close {
   .navbar-nav .dropdown-menu>li>a {
     padding: 5px 15px 5px 25px;
     color: #777;
+  }
+}
+
+@media (max-width: 768px) {
+  .dashboard-box {
+    margin-left: 15px;
   }
 }
 

@@ -75,7 +75,7 @@ class Forecast extends Component {
     } = this.getValues();
     const gC = (<small> C</small>);
     return (
-      <div className="widget weathe wow fadeIn" data-wow-duration="1s" data-wow-delay="0.6s">
+      <div className="widget weather">
         <div className="weather-box">
           <div className="weather-info clearfix pt-10">
             <div className="weather-main">
@@ -109,7 +109,7 @@ class Forecast extends Component {
               </ul>
             </div>
           </div>
-          <div className="text-center">
+          <div className="weather-desc text-center">
             <span className="btn btn-gradient btn-sm rounded uppercase">{description}</span>
           </div>
           {
