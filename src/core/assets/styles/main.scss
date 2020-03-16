@@ -632,13 +632,43 @@ button.toast-close {
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
+  > div {
+    margin-bottom: 15px;
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
   .dashboard-box {
     border-radius: 22px;
     overflow: hidden;
-    margin-bottom: 15px;
     margin-left: 15px;
-    &:last-child {
-      margin-bottom: 0;
+    display: inline-block;
+    .weather-main.left {
+      overflow: hidden;
+      max-height: 100px;
+      max-width: 160px;
+      min-width: 150px;
+      overflow: hidden;
+      opacity: 1;
+      transition: all 1s ease-in-out;
+    }
+    .weather-box {
+      transition: all 1s ease-in-out;
+    }
+    &.small {
+      .weather-main.left {
+        // width: 0;
+        // height: 0;
+        min-width: 0px;
+        min-height: 0px;
+        max-width: 0;
+        max-height: 0;
+        opacity: 0;
+      }
+      .weather-box {
+        padding: 20px;
+        border-radius: 50%;
+      }
     }
     .weather-box {
       padding: 30px;
@@ -647,19 +677,25 @@ button.toast-close {
       }
     }
     .weather-main.left {
-      min-width: 140px;
+      // min-width: 140px;
       li, span {
         font-size: 11px;
         padding: 0;
         line-height: 12px;
         letter-spacing: 1px;
         text-transform: uppercase;
+        max-width: 100%;
+        text-overflow: ellipsis;
+        white-space: nowrap;
       }
       h5 {
         font-size: 13px;
         text-transform: uppercase;
         margin: 2px 0;
         margin-bottom: 5px;
+        max-width: 100%;
+        text-overflow: ellipsis;
+        white-space: nowrap;
       }
     }
   }

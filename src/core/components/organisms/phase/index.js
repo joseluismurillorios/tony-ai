@@ -50,6 +50,7 @@ const Phase = ({
   heading,
   hidden,
   size,
+  onClick,
 }) => {
   const id = `${type}Current`;
   const config = type === 'earth' ? earthConfig : moonConfig;
@@ -78,7 +79,7 @@ const Phase = ({
             </ul>
           </div>
           <div className="weather-temp right text-center">
-            <Globe id={id} type={type} age={0} phase={current} size={size} />
+            <Globe id={id} type={type} age={0} phase={current} size={size} onClick={onClick} />
           </div>
         </div>
         {
@@ -112,6 +113,7 @@ Phase.defaultProps = {
   current: 0,
   heading: false,
   hidden: false,
+  onClick: () => {},
 };
 
 Phase.propTypes = {
@@ -136,6 +138,7 @@ Phase.propTypes = {
     PropTypes.string,
   ]),
   hidden: PropTypes.bool,
+  onClick: PropTypes.func,
 };
 
 export default Phase;

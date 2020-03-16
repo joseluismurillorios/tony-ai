@@ -49,6 +49,8 @@ class Home extends Component {
       menuOpened: false,
       visual: false,
       modal: query.display || '',
+      smallMoon: false,
+      smallEarth: false,
     };
 
     this.ctx = new (window.AudioContext || window.webkitAudioContext)();
@@ -181,6 +183,8 @@ class Home extends Component {
       menuOpened,
       visual,
       modal,
+      smallMoon,
+      smallEarth,
     } = this.state;
     const items = voices.map(v => ({ id: v.name, name: v.name, lang: v.lang }));
     return (
@@ -220,42 +224,56 @@ class Home extends Component {
                 <div id="Dashboard">
                   {
                     earthPhases && (
-                      <div className="dashboard-box">
-                        <Phase
-                          type="earth"
-                          size="80px"
-                          heading={<Clock noseconds format="dddd hh:mm A" />}
-                          subtitle={earthPhaseName}
-                          desc={[
-                            <Clock noseconds format="MMMM DD [del] YYYY" />,
-                            `Día: ${earthPhase.elapsed}`,
-                            `Restantes: ${earthPhase.remaining}`,
-                          ]}
-                          phases={earthPhases}
-                          current={earthCurrent}
-                          hidden
-                        />
+                      <div>
+                        <div className={`dashboard-box ${smallEarth ? 'small' : ''}`}>
+                          <Phase
+                            type="earth"
+                            size="80px"
+                            heading={<Clock noseconds format="dddd hh:mm A" />}
+                            subtitle={earthPhaseName}
+                            desc={[
+                              <Clock noseconds format="MMMM DD [del] YYYY" />,
+                              `Día: ${earthPhase.elapsed}`,
+                              `Restantes: ${earthPhase.remaining}`,
+                            ]}
+                            phases={earthPhases}
+                            current={earthCurrent}
+                            hidden
+                            onClick={() => {
+                              this.setState({
+                                smallEarth: !smallEarth,
+                              });
+                            }}
+                          />
+                        </div>
                       </div>
                     )
                   }
 
                   {
                     moonPhase && (
-                      <div className="dashboard-box">
-                        <Phase
-                          type="moon"
-                          size="80px"
-                          heading="Fase Lunar"
-                          subtitle={moonPhaseName}
-                          desc={[
-                            `Fase: ${moonPhase.phase.toFixed(2)}`,
-                            `Luz: ${moonPhase.illuminated.toFixed(2)}%`,
-                            `Edad: ${moonPhase.age.toFixed(2)}`,
-                          ]}
-                          phases={moonPhases}
-                          current={moonCurrent}
-                          hidden
-                        />
+                      <div>
+                        <div className={`dashboard-box ${smallMoon ? 'small' : ''}`}>
+                          <Phase
+                            type="moon"
+                            size="80px"
+                            heading="Fase Lunar"
+                            subtitle={moonPhaseName}
+                            desc={[
+                              `Fase: ${moonPhase.phase.toFixed(2)}`,
+                              `Luz: ${moonPhase.illuminated.toFixed(2)}%`,
+                              `Edad: ${moonPhase.age.toFixed(2)}`,
+                            ]}
+                            phases={moonPhases}
+                            current={moonCurrent}
+                            hidden
+                            onClick={() => {
+                              this.setState({
+                                smallMoon: !smallMoon,
+                              });
+                            }}
+                          />
+                        </div>
                       </div>
                     )
                   }

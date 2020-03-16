@@ -6,6 +6,7 @@ const Globe = ({
   phase,
   id,
   type,
+  onClick,
 }) => {
   const lf = Math.min(3 - 4 * phase, 1);
   const lc = Math.abs(lf * 50);
@@ -16,8 +17,14 @@ const Globe = ({
   const rb = (rf < 0) ? '0' : '1';
 
   const d = `M 60 10 a ${lc} 50, 0, 0 ${lb}, 0 100 a ${rc} 50, 0, 0 ${rb}, 0 -100z`;
+  const onKeyPress = (ev) => {
+    if (ev.key === 'Enter') {
+      onClick();
+      console.log('enter', id);
+    }
+  };
   return (
-    <div className={type}>
+    <div role="button" tabIndex="0" className={type} onClick={onClick} onKeyPress={onKeyPress}>
       <svg width={size} height={size} viewBox="0 0 120 120">
         <defs>
           <filter id={`blur-${id}`} x="-10%" width="120%" y="-10%" height="120%">
@@ -76,6 +83,7 @@ Globe.defaultProps = {
   size: '120px',
   type: 'earth',
   phase: 0.5,
+  onClick: () => {},
 };
 
 Globe.propTypes = {
@@ -86,6 +94,7 @@ Globe.propTypes = {
     PropTypes.string,
     PropTypes.number,
   ]),
+  onClick: PropTypes.func,
 };
 
 export default Globe;
