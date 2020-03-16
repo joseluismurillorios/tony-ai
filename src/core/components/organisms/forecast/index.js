@@ -6,7 +6,7 @@ import { getWeatherIcon, getWeatherDateObj } from '../../../helpers/helper-weath
 
 const config = {
   perView: 3,
-  bullets: false,
+  // bullets: false,
   type: 'carousel',
   breakpoints: {
     541: {
@@ -24,7 +24,21 @@ const config = {
 class Forecast extends Component {
   constructor(props) {
     super(props);
-    this.getValue = this.getValues.bind(this);
+    this.getValues = this.getValues.bind(this);
+    this.onMove = this.onMove.bind(this);
+
+    this.state = {
+      index: 0,
+    };
+  }
+
+  onMove(newIndex) {
+    const {
+      index,
+    } = this.state;
+    if (newIndex !== index) {
+      this.setState({ index: newIndex });
+    }
   }
 
   getValues() {
@@ -65,6 +79,9 @@ class Forecast extends Component {
     const {
       hidden,
     } = this.props;
+    const {
+      index,
+    } = this.state;
     const {
       humidity,
       icon,
@@ -118,6 +135,9 @@ class Forecast extends Component {
                 className="week-days owl-theme mt-40"
                 slideBy="page"
                 config={config}
+                id="ForecastModal"
+                startAt={index}
+                onMove={this.onMove}
               >
                 {
                   forecastMetric.list.map((obj) => {

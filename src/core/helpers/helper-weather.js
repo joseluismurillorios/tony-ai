@@ -370,7 +370,7 @@ const SUNPHASES = {
   sunsetStart: 'puesta de sol',
 };
 
-export const getWeatherIcon = (code, night) => {
+export const getWeatherIcon = (code, night, prefix = 'wef') => {
   switch (code) {
     case 200: // thunderstorm with light rain
     case 201: // thunderstorm with rain
@@ -384,10 +384,10 @@ export const getWeatherIcon = (code, night) => {
     case 232: // thunderstorm with heavy drizzle
       if (!night) {
         // Daytime
-        return 'wi wi-day-thunderstorm';
+        return `${prefix} ${prefix}-day-thunderstorm`;
       }
       // Nighttime
-      return 'wi wi-night-alt-thunderstorm';
+      return `${prefix} ${prefix}-night-alt-thunderstorm`;
 
 
     case 300: // light intensity drizzle
@@ -401,10 +401,10 @@ export const getWeatherIcon = (code, night) => {
     case 321: // shower drizzle
       if (!night) {
         // Daytime
-        return 'wi wi-day-showers';
+        return `${prefix} ${prefix}-day-showers`;
       }
       // Nighttime
-      return 'wi wi-night-alt-showers';
+      return `${prefix} ${prefix}-night-alt-showers`;
 
 
     case 500: // light rain
@@ -418,9 +418,9 @@ export const getWeatherIcon = (code, night) => {
     case 522: // heavy intensity shower rain
     case 531: // ragged shower rain
       if (!night) {
-        return 'wi wi-day-rain';
+        return `${prefix} ${prefix}-day-rain`;
       }
-      return 'wi wi-night-alt-rain';
+      return `${prefix} ${prefix}-night-alt-rain`;
 
 
     case 600: // light snow
@@ -432,56 +432,56 @@ export const getWeatherIcon = (code, night) => {
     case 621: // shower snow
     case 622: // heavy shower snow
       if (!night) {
-        return 'wi wi-day-snow';
+        return `${prefix} ${prefix}-day-snow`;
       }
-      return 'wi wi-night-alt-snow';
+      return `${prefix} ${prefix}-night-alt-snow`;
 
 
     case 611: // sleet
     case 612: // shower sleet
       if (!night) {
-        return 'wi wi-day-sleet';
+        return `${prefix} ${prefix}-day-sleet`;
       }
-      return 'wi wi-night-alt-sleet';
+      return `${prefix} ${prefix}-night-alt-sleet`;
 
 
     case 701: // mist
     case 721: // haze
     case 741: // fog
       if (!night) {
-        return 'wi wi-day-fog';
+        return `${prefix} ${prefix}-day-fog`;
       }
-      return 'wi wi-night-fog';
+      return `${prefix} ${prefix}-night-alt-fog`;
 
     case 711: // smoke
-      return 'wi wi-smog';
+      return `${prefix} ${prefix}-smog`;
 
     case 731: // sand, dust whirls
     case 751: // sand
-      return 'wi wi-sandstorm';
+      return `${prefix} ${prefix}-sandstorm`;
 
     case 761: // dust
-      return 'wi wi-dust';
+      return `${prefix} ${prefix}-dust`;
 
     case 762: // volcanic ash
-      return 'wi wi-volcano';
+      return `${prefix} ${prefix}-volcano`;
 
     case 771: // squalls
     case 901: // tropical storm
     case 960: // storm
     case 961: // violent storm
-      return 'wi wi-thunderstorm';
+      return `${prefix} ${prefix}-thunderstorm`;
 
     case 781: // tornado
     case 900: // tornado
-      return 'wi wi-tornado';
+      return `${prefix} ${prefix}-tornado`;
 
     case 800: // clear sky
     case 951: // calm
       if (!night) {
-        return 'wi wi-day-sunny';
+        return `${prefix} ${prefix}-day-sunny`;
       }
-      return 'wi wi-night-clear';
+      return `${prefix} ${prefix}-night-clear`;
 
 
     case 801: // few clouds
@@ -489,20 +489,20 @@ export const getWeatherIcon = (code, night) => {
     case 803: // broken clouds
     case 804: // overcast clouds
       if (!night) {
-        return 'wi wi-day-cloudy';
+        return `${prefix} ${prefix}-day-cloudy`;
       }
-      return 'wi wi-night-alt-cloudy';
+      return `${prefix} ${prefix}-night-alt-cloudy`;
 
 
     case 902: // hurricane
     case 962: // hurricane
-      return 'wi wi-hurricane';
+      return `${prefix} ${prefix}-hurricane`;
 
     case 903: // cold
-      return 'wi wi-thermometer-exterior';
+      return `${prefix} ${prefix}-thermometer-cold`;
 
     case 904: // hot
-      return 'wi wi-thermometer';
+      return `${prefix} ${prefix}-thermometer-hot`;
 
     case 905: // windy
     case 952: // light breeze
@@ -510,15 +510,15 @@ export const getWeatherIcon = (code, night) => {
     case 954: // moderate breeze
     case 955: // fresh breeze
     case 956: // strong breeze
-      return 'wi wi-windy';
+      return `${prefix} ${prefix}-windy`;
 
     case 906: // hail
-      return 'wi wi-hail';
+      return `${prefix} ${prefix}-hail`;
 
     case 957: // high wind, near gale
     case 958: // gale
     case 959: // severe gale
-      return 'wi wi-strong-wind';
+      return `${prefix} ${prefix}-strong-wind`;
     default:
       return '';
   }

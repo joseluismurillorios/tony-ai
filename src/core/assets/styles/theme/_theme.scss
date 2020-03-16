@@ -5678,11 +5678,32 @@ img {
 	z-index: 1299;
 }
 .modal-dialog {
-	margin-top: 7%;
+	// margin-top: 7%;
 	z-index: 1300;
 }
 .modal-content {
 	border-radius: 0;
+}
+.modal {
+	.modal-dialog {
+		position: absolute;
+		z-index: 1300;
+		left: 50%;
+		top: 40%;
+		transform: translate(-50%, -50%);
+    .modal-body {
+      padding: 15px 18px;
+      padding-top: 0;
+      max-height: 60%;
+			overflow-y: auto;
+		}
+	}
+	&.fade .modal-dialog {
+		transform: translate(-50%, -20%);
+	}
+	&.in .modal-dialog {
+		transform: translate(-50%, -50%);
+	}
 }
 .mfp-iframe-holder {
 	.mfp-content {

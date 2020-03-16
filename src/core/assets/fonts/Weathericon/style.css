@@ -1,0 +1,179 @@
+@font-face {
+  font-family: 'Weathericon';
+  src:  url('Weathericon.eot?d4w4h');
+  src:  url('Weathericon.eot?d4w4h#iefix') format('embedded-opentype'),
+    url('Weathericon.ttf?d4w4h') format('truetype'),
+    url('Weathericon.woff?d4w4h') format('woff'),
+    url('Weathericon.svg?d4w4h#Weathericon') format('svg');
+  font-weight: normal;
+  font-style: normal;
+  font-display: block;
+}
+
+.we {
+  /* use !important to prevent issues with browser extensions that change fonts */
+  font-family: 'Weathericon' !important;
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 0.8;
+  display: inline-block;
+  font-size: 150%;
+
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.we-cloudy-gusts:before {
+  content: "\e900";
+}
+.we-cloudy-windy:before {
+  content: "\e901";
+}
+.we-cloudy:before {
+  content: "\e902";
+}
+.we-day-cloudy-gusts:before {
+  content: "\e903";
+}
+.we-day-cloudy-windy:before {
+  content: "\e904";
+}
+.we-day-cloudy:before {
+  content: "\e905";
+}
+.we-day-fog:before {
+  content: "\e906";
+}
+.we-day-hail:before {
+  content: "\e907";
+}
+.we-day-lightning:before {
+  content: "\e908";
+}
+.we-day-rain-wind:before {
+  content: "\e909";
+}
+.we-day-rain:before {
+  content: "\e90a";
+}
+.we-day-showers:before {
+  content: "\e90b";
+}
+.we-day-sleet:before {
+  content: "\e90c";
+}
+.we-day-snow:before {
+  content: "\e90d";
+}
+.we-day-sunny:before {
+  content: "\e90e";
+}
+.we-day-thunderstorm:before {
+  content: "\e90f";
+}
+.we-day-windy:before {
+  content: "\e910";
+}
+.we-dust:before {
+  content: "\e911";
+}
+.we-fog:before {
+  content: "\e912";
+}
+.we-hail:before {
+  content: "\e913";
+}
+.we-hurricane:before {
+  content: "\e914";
+}
+.we-lightning:before {
+  content: "\e915";
+}
+.we-night-alt-cloudy-gusts:before {
+  content: "\e916";
+}
+.we-night-alt-cloudy-windy:before {
+  content: "\e917";
+}
+.we-night-alt-cloudy:before {
+  content: "\e918";
+}
+.we-night-alt-hail:before {
+  content: "\e919";
+}
+.we-night-alt-lightning:before {
+  content: "\e91a";
+}
+.we-night-alt-rain-wind:before {
+  content: "\e91b";
+}
+.we-night-alt-rain:before {
+  content: "\e91c";
+}
+.we-night-alt-showers:before {
+  content: "\e91d";
+}
+.we-night-alt-sleet:before {
+  content: "\e91e";
+}
+.we-night-alt-snow:before {
+  content: "\e91f";
+}
+.we-night-alt-thunderstorm:before {
+  content: "\e920";
+}
+.we-night-alt-windy:before {
+  content: "\e921";
+}
+.we-night-clear:before {
+  content: "\e922";
+}
+.we-night-fog:before {
+  content: "\e923";
+}
+.we-rain-wind:before {
+  content: "\e924";
+}
+.we-rain:before {
+  content: "\e925";
+}
+.we-showers:before {
+  content: "\e926";
+}
+.we-sleet:before {
+  content: "\e927";
+}
+.we-snow:before {
+  content: "\e928";
+}
+.we-strong-wind:before {
+  content: "\e929";
+}
+.we-thermometer-cold:before {
+  content: "\e92a";
+}
+.we-thermometer-exterior:before {
+  content: "\e92b";
+}
+.we-thermometer-hot:before {
+  content: "\e92c";
+}
+.we-thermometer-internal:before {
+  content: "\e92d";
+}
+.we-thunderstorm:before {
+  content: "\e92e";
+}
+.we-tornado:before {
+  content: "\e92f";
+}
+.we-umbrella:before {
+  content: "\e930";
+}
+.we-windy:before {
+  content: "\e931";
+}

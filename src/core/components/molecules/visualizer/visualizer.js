@@ -110,7 +110,7 @@ const LoopVisualizer = (scene, analyser, mic) => {
     levels.push(scaledAverage * aveOffset);
 
     // get noise color posn
-    noisePos += 0.002;
+    noisePos += 0.0002;
     // noisePos += 0.005;
     const n = Math.abs(perlin.noise(noisePos, 0, 0));
     colors.push(n);

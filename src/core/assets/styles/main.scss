@@ -2,6 +2,7 @@
 @import "../fonts/implanf/style.css";
 @import "../fonts/flexslider-icon/flexslider.css";
 @import "../fonts/WeatherIcons/WeatherIcons.css";
+@import "../fonts/WeathericonFat/style.css";
 
 @import "foundation/variables";
 
@@ -243,6 +244,13 @@ div.nonscrollable {
   font-size: 14px;
 }
 
+.text-big {
+  font-size: 32px;
+  span {
+    margin: 0 10px; 
+  }
+}
+
 // Loader
 
 $loader-size: 10rem;
@@ -393,7 +401,7 @@ button.toast-close {
           margin-top: 15px;
         }
         .weather-icon i {
-          margin-bottom: 15px;
+          margin-bottom: 10px;
         }
         .weather-wrap {
           display: flex;
@@ -417,6 +425,13 @@ button.toast-close {
   }
 }
 
+.week-days .week-day>span {
+  // -webkit-font-smoothing: subpixel-antialiased;
+  backface-visibility: hidden;
+  filter: blur(0);
+  transform: translateZ(0);
+}
+
 .weather-main.left {
   min-width: 130px;
 }
@@ -424,6 +439,12 @@ button.toast-close {
 .weather-wrap.clearfix {
   display: flex;
   align-items: center;
+}
+
+.week-days .week-day>span.wef {
+  font-size: 18px;
+  color: #2cb8a5;
+  padding: 10px 0;
 }
 
 .flex-center {
@@ -506,7 +527,7 @@ button.toast-close {
     i {
       top: 0;
       font-size: 50px;
-      line-height: 45px;
+      // line-height: 45px;
     }
     .temp-main {
       margin-top: 5px;

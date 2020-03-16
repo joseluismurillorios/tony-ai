@@ -30,6 +30,8 @@ const Glides = ({
   id,
   className,
   config,
+  // onMove,
+  startAt,
 }) => {
   const options = {
     ...defaultConfig,
@@ -49,7 +51,11 @@ const Glides = ({
       }
       glide = new Glide(contEl.current, {
         ...options,
+        startAt,
       });
+      // glide.on('move', () => {
+      //   onMove(glide.index);
+      // });
       glide.mount();
     }
     return () => {
@@ -99,6 +105,8 @@ Glides.defaultProps = {
   id: '',
   className: '',
   config: {},
+  // onMove: () => {},
+  startAt: 0,
 };
 
 Glides.propTypes = {
@@ -110,6 +118,8 @@ Glides.propTypes = {
   id: PropTypes.string,
   className: PropTypes.string,
   config: PropTypes.objectOf(PropTypes.any),
+  // onMove: PropTypes.func,
+  startAt: PropTypes.number,
 };
 
 export default Glides;
