@@ -527,8 +527,9 @@ export const getWeatherIcon = (code, night, prefix = 'wef') => {
 // End Clock
 
 const formatHour = s => s.format('h:mm A');
-const formatDay = s => s.format('ddd DD');
+const formatDay = s => s.format('dddd DD');
 const formatDate = s => s.format('MMM DD h:mm A');
+const formatDisplay = (s, f) => s.format(f);
 
 export const getWeatherDateObj = (unix) => {
   // console.log(new Date(unix * 1000));
@@ -536,6 +537,7 @@ export const getWeatherDateObj = (unix) => {
   return {
     hour: formatHour(date),
     day: formatDay(date),
+    date: formatDisplay(date, 'YY-MM-DD-HH'),
   };
 };
 
@@ -652,6 +654,32 @@ export const getMoonPhaseName = (moonPhase) => {
     moonName = 'Menguante';
   }
   return moonName;
+};
+
+export const getForecastList = (data, forecastList = {}) => {
+  const list = {};
+  Object.keys(forecastList).forEach((key) => {
+    const obj = forecastList[key];
+    const date = dayjs.unix(obj.dt).toString();
+    const isAfter = dayjs().isSameOrBefore(date);
+    if (isAfter) {
+      list[key] = obj;
+    }
+  });
+  const forecastMetric = data;
+  forecastMetric.list.forEach((obj) => {
+    const { dt, main, weather } = obj;
+    const { id: idn, icon: ic } = weather[0];
+    const date = getWeatherDateObj(dt);
+    const icn = getWeatherIcon(idn, ic.indexOf('n') > -1);
+    list[date.date] = {
+      date,
+      icn,
+      dt,
+      main,
+    };
+  });
+  return list;
 };
 
 export const getDOY = () => {

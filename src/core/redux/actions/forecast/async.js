@@ -2,9 +2,13 @@ import axios from 'axios';
 import { toast } from 'react-toastify';
 
 import {
-  setForecastMetric,
   setWeatherMetric,
+  setEarthPhases,
+  setForecastList,
 } from './index';
+import {
+  getForecastList,
+} from '../../../helpers/helper-weather';
 
 export const onWeatherChange = () => (
   dispatch => (
@@ -27,11 +31,21 @@ export const onForecastChange = () => (
       console.log('onForecastChange');
       axios.get('https://api.openweathermap.org/data/2.5/forecast?q=Tijuana,mx&units=metric&lang=es&APPID=e55ac5454485f43016d78b600a54208c')
         .then((response) => {
-          dispatch(setForecastMetric(response.data));
+          // dispatch(setForecastMetric(response.data));
+          const list = getForecastList(response.data);
+          dispatch(setForecastList(list));
         })
         .catch((error) => {
           toast.error(error.message, { autoclose: 2000 });
         });
+    }, 3 * 60 * 1000)
+  )
+);
+
+export const onPhaseChange = () => (
+  dispatch => (
+    setInterval(() => {
+      dispatch(setEarthPhases());
     }, 3 * 60 * 1000)
   )
 );
@@ -47,9 +61,14 @@ export const getWeatherMetric = () => (
 );
 
 export const getForecastMetric = () => (
-  dispatch => axios.get('https://api.openweathermap.org/data/2.5/forecast?q=Tijuana,mx&units=metric&lang=es&APPID=e55ac5454485f43016d78b600a54208c')
+  (dispatch, getState) => axios.get('https://api.openweathermap.org/data/2.5/forecast?q=Tijuana,mx&units=metric&lang=es&APPID=e55ac5454485f43016d78b600a54208c')
     .then((response) => {
-      dispatch(setForecastMetric(response.data));
+      // dispatch(setForecastMetric(response.data));
+      const state = getState();
+      const { forecast } = state;
+      const { forecastList } = forecast;
+      const list = getForecastList(response.data, forecastList);
+      dispatch(setForecastList(list));
     })
     .catch((error) => {
       toast.error(error.message, { autoclose: 2000 });

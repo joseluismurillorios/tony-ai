@@ -5,6 +5,9 @@
 /** @constant {string} SET_FORECAST_METRIC */
 export const SET_FORECAST_METRIC = 'core/redux/forecast/SET_FORECAST_METRIC';
 
+/** @constant {string} SET_FORECAST_LIST */
+export const SET_FORECAST_LIST = 'core/redux/forecast/SET_FORECAST_LIST';
+
 /** @constant {string} SET_WEATHER_METRIC */
 export const SET_WEATHER_METRIC = 'core/redux/forecast/SET_WEATHER_METRIC';
 

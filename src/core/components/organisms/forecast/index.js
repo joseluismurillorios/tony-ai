@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 import Slider from '../../molecules/glide';
-import { getWeatherIcon, getWeatherDateObj } from '../../../helpers/helper-weather';
+import { getWeatherIcon } from '../../../helpers/helper-weather';
 
 const config = {
   perView: 3,
@@ -42,9 +42,8 @@ class Forecast extends Component {
   }
 
   getValues() {
-    const { forecast } = this.props;
-    if (forecast.weatherMetric) {
-      const { weatherMetric, forecastMetric } = forecast;
+    const { weatherMetric } = this.props;
+    if (weatherMetric) {
       if (weatherMetric.main) {
         const {
           weather,
@@ -60,7 +59,6 @@ class Forecast extends Component {
           wind: wind.speed,
           temp,
           humidity,
-          forecastMetric,
         };
       }
     }
@@ -78,6 +76,7 @@ class Forecast extends Component {
   render() {
     const {
       hidden,
+      forecastList,
     } = this.props;
     const {
       index,
@@ -88,9 +87,9 @@ class Forecast extends Component {
       temp,
       wind,
       description,
-      forecastMetric,
     } = this.getValues();
     const gC = (<small> C</small>);
+    // console.log(forecastList);
     return (
       <div className="widget weather">
         <div className="weather-box">
@@ -130,7 +129,7 @@ class Forecast extends Component {
             <span className="btn btn-gradient btn-sm rounded uppercase">{description}</span>
           </div>
           {
-            forecastMetric && forecastMetric.list && !hidden && (
+            forecastList && !hidden && (
               <Slider
                 className="week-days owl-theme mt-40"
                 slideBy="page"
@@ -140,13 +139,16 @@ class Forecast extends Component {
                 onMove={this.onMove}
               >
                 {
-                  forecastMetric.list.map((obj) => {
-                    const { dt, main, weather } = obj;
-                    const { id: idn, icon: ic } = weather[0];
-                    const date = getWeatherDateObj(dt);
-                    const icn = getWeatherIcon(idn, ic.indexOf('n') > -1);
+                  Object.keys(forecastList).map((key) => {
+                    const obj = forecastList[key];
+                    const {
+                      // dt,
+                      main,
+                      date,
+                      icn,
+                    } = obj;
                     return (
-                      <li key={dt} className="week-day capitalize">
+                      <li key={date.date} className="week-day capitalize">
                         <span>{date.day.replace('.', '')}</span>
                         <span><small>{date.hour}</small></span>
                         <span className={icn} />
@@ -167,15 +169,15 @@ class Forecast extends Component {
 }
 
 Forecast.defaultProps = {
-  forecast: {},
   hidden: false,
+  weatherMetric: {},
+  forecastList: {},
 };
 
 Forecast.propTypes = {
-  forecast: PropTypes.objectOf(
-    PropTypes.any,
-  ),
   hidden: PropTypes.bool,
+  weatherMetric: PropTypes.objectOf(PropTypes.any),
+  forecastList: PropTypes.objectOf(PropTypes.any),
 };
 
 export default Forecast;

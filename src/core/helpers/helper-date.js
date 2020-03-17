@@ -1,6 +1,8 @@
 import dayjs from 'dayjs';
 import 'dayjs/locale/es';
+import isSameOrBefore from 'dayjs/plugin/isSameOrBefore';
 
+dayjs.extend(isSameOrBefore);
 dayjs.locale('es');
 
 export default dayjs;

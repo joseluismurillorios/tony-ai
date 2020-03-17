@@ -175,6 +175,8 @@ class Home extends Component {
       earthCurrent,
       moonPhaseName,
       earthPhaseName,
+      weatherMetric,
+      forecastList,
     } = forecast;
     const {
       resultString,
@@ -187,6 +189,7 @@ class Home extends Component {
       smallEarth,
     } = this.state;
     const items = voices.map(v => ({ id: v.name, name: v.name, lang: v.lang }));
+    // console.log(forecast);
     return (
       <div
         id="Home"
@@ -319,7 +322,8 @@ class Home extends Component {
             >
               <Wow className="dashboard-box" show={modal === 'clima'}>
                 <Forecast
-                  forecast={forecast}
+                  weatherMetric={weatherMetric}
+                  forecastList={forecastList}
                 />
               </Wow>
             </Modal>

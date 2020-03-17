@@ -13,6 +13,7 @@ import {
 import {
   onWeatherChange,
   onForecastChange,
+  onPhaseChange,
   getWeatherMetric,
   getForecastMetric,
 } from './redux/actions/forecast/async';
@@ -52,6 +53,7 @@ class Layout extends Component {
     const {
       onWeather,
       onForecast,
+      onPhase,
       getWeather,
       getForecast,
     } = this.props;
@@ -73,6 +75,7 @@ class Layout extends Component {
     getForecast();
     onWeather();
     onForecast();
+    onPhase();
 
     if (isIOS && isInStandaloneMode()) {
       document.documentElement.style.height = '100%';
@@ -176,6 +179,7 @@ class Layout extends Component {
 Layout.defaultProps = {
   onWeather: () => {},
   onForecast: () => {},
+  onPhase: () => {},
   hideMessage: () => {},
   getWeather: () => {},
   getForecast: () => {},
@@ -192,6 +196,7 @@ Layout.propTypes = {
   ).isRequired,
   onWeather: PropTypes.func,
   onForecast: PropTypes.func,
+  onPhase: PropTypes.func,
   hideMessage: PropTypes.func,
   getWeather: PropTypes.func,
   getForecast: PropTypes.func,
@@ -206,6 +211,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = {
   onWeather: onWeatherChange,
   onForecast: onForecastChange,
+  onPhase: onPhaseChange,
   hideMessage: hideInstallMessage,
   getWeather: getWeatherMetric,
   getForecast: getForecastMetric,

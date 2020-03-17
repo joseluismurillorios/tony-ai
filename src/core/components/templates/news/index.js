@@ -39,7 +39,6 @@ class News extends Component {
       moonPhaseName,
       earthPhaseName,
     } = forecast;
-    // const { forecastMetric } = forecast;
     const path = match.path.substring(1, match.path.length);
     const paths = path.split('/');
     paths.pop();
