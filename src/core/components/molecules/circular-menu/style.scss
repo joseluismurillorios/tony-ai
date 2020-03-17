@@ -6,6 +6,11 @@ body {
   bottom: 1em;
   right: 1em;
 }
+.circular-wrapper {
+  position: relative;
+  width: 3.5em;
+  height: 3.5em;
+}
 
 .circular-menu .floating-btn {
   display: flex;
@@ -47,16 +52,19 @@ body {
   height: 3.5em;
   border-radius: 50%;
   position: absolute;
-  top: 0;
-  right: 0;
   z-index: -2;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   // background-color: hsl(4, 98%, 60%);
   background: linear-gradient(to bottom right,#d7bbea,#65a8f1);
   transition: all .3s ease;
 }
 
 .circular-menu.active:after {
-  transform: scale3d(5.5, 5.5, 1);
+  // transform: scale3d(5.5, 5.5, 1);
+  width: 19.5em;
+  height: 19.5em;
   transition-timing-function: cubic-bezier(.68, 1.55, .265, 1);
 }
 

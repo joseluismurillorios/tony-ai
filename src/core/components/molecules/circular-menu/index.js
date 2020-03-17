@@ -25,55 +25,57 @@ const CircularMenu = ({
   onVisualToggle,
 }) => (
   <div className={`circular-menu ${opened ? 'active' : ''}`}>
-    <button type="button" className="floating-btn" onClick={onToggleOpened}>
-      <Settings />
-    </button>
-    <menu className="items-wrapper">
-      <button type="button" className="menu-item" onClick={onVoiceToggle}>
-        {
-          voice
-            ? (
-              <Volume2 />
-            )
-            : (
-              <VolumeX />
-            )
-        }
+    <div className="circular-wrapper">
+      <button type="button" className="floating-btn" onClick={onToggleOpened}>
+        <Settings />
       </button>
-      <button type="button" className="menu-item" onClick={onVoiceToggle}>
-        {
-          mic
-            ? (
-              <Mic />
-            )
-            : (
-              <MicOff />
-            )
-        }
-      </button>
-      <button type="button" className="menu-item" onClick={onVisualToggle}>
-        {
-          visual
-            ? (
-              <Eye />
-            )
-            : (
-              <EyeOff />
-            )
-        }
-      </button>
-      <button type="button" className="menu-item" onClick={onVoiceToggle}>
-        {
-          camera
-            ? (
-              <Video />
-            )
-            : (
-              <VideoOff />
-            )
-        }
-      </button>
-    </menu>
+      <menu className="items-wrapper">
+        <button type="button" className="menu-item" onClick={onVoiceToggle}>
+          {
+            voice
+              ? (
+                <Volume2 />
+              )
+              : (
+                <VolumeX />
+              )
+          }
+        </button>
+        <button type="button" className="menu-item" onClick={onVoiceToggle}>
+          {
+            mic
+              ? (
+                <Mic />
+              )
+              : (
+                <MicOff />
+              )
+          }
+        </button>
+        <button type="button" className="menu-item" onClick={onVisualToggle}>
+          {
+            visual
+              ? (
+                <Eye />
+              )
+              : (
+                <EyeOff />
+              )
+          }
+        </button>
+        <button type="button" className="menu-item" onClick={onVoiceToggle}>
+          {
+            camera
+              ? (
+                <Video />
+              )
+              : (
+                <VideoOff />
+              )
+          }
+        </button>
+      </menu>
+    </div>
   </div>
 );
 

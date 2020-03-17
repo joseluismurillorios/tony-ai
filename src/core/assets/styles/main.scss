@@ -705,6 +705,10 @@ button.toast-close {
   letter-spacing: -10px;
 }
 
+.navbar {
+  z-index: 1400;
+}
+
 // @media (max-height: 840px) {
 //   .dashboard-box {
 //     &:last-child {
@@ -740,6 +744,23 @@ button.toast-close {
 }
 
 @media (max-width: 768px) {
+  .modal .modal-dialog {
+    max-width: 75%;
+    margin: 0;
+    left: 50%;
+    top: 30px;
+  }
+  .modal.modal-info {
+    .glide__bullets {
+      display: none;
+    }
+  }
+  .modal.fade .modal-dialog {
+    transform: translateX(-20%);
+  }
+  .modal.in .modal-dialog {
+    transform: translateX(-50%);
+  }
 }
 
 .buttons-holder .btn-lg.btn-white {
