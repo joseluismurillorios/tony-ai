@@ -25,7 +25,7 @@ module.exports = merge(common, {
       filename: '../statistics.html',
     }),
     new PurgecssPlugin({
-      whitelistPatternsChildren: [/^btn-/i, /^Toastify/i, /^esri/i, /^fade/i, /^slow/, /^owl/i, /^mfp/i],
+      whitelistPatternsChildren: [/^btn-/i, /^Toastify/i, /^esri/i, /^fade/i, /^slow/, /^owl/i, /^mfp/i, /^wef/i],
       paths: () => glob.sync(`${PATHS.src}/**/*`, { nodir: true }),
     }),
   ],

@@ -34,12 +34,19 @@
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
-      font-size: 18vmax;
-      color: #F9FAFC;
+      font-size: 16vmax;
+      // font-size: 18vmax;
+      color: #f4f4f4;
+      // color: #F9FAFC;
       z-index: 1;
-      font-weight: 600;
+      font-weight: 400;
+      span {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
       .wef {
-        font-size: 110%;
+        font-size: 70%;
       }
     }
     .text-front {
