@@ -6,6 +6,7 @@ import { TransitionGroup, CSSTransition } from 'react-transition-group';
 
 // import { ROUTES } from './components/templates';
 import Home from './components/templates/home';
+import Dashboard from './components/templates/dashboard';
 // import NotFound from './components/templates/notfound';
 
 // const SUB = [];
@@ -20,6 +21,7 @@ const Routes = ({ history }) => {
       <CSSTransition key={location.pathname} timeout={timeout} classNames="fade" appear>
         <Switch location={location}>
           <Route path="/" exact component={Home} />
+          <Route path="/dashboard" exact component={Dashboard} />
           {/* {
             ROUTES.map(obj => (
               <Route key={obj.url} path={obj.url} exact component={obj.component} />

@@ -7,7 +7,7 @@ import {
   setForecastList,
 } from './index';
 import {
-  getForecastList,
+  getForecastList, getWeatherValues,
 } from '../../../helpers/helper-weather';
 
 export const onWeatherChange = () => (
@@ -16,7 +16,9 @@ export const onWeatherChange = () => (
       console.log('onWeatherChange');
       axios.get('https://api.openweathermap.org/data/2.5/weather?q=Tijuana,mx&units=metric&lang=es&APPID=e55ac5454485f43016d78b600a54208c')
         .then((response) => {
-          dispatch(setWeatherMetric(response.data));
+          const weather = getWeatherValues(response.data);
+          console.log(weather);
+          dispatch(setWeatherMetric(weather));
         })
         .catch((error) => {
           toast.error(error.message, { autoclose: 2000 });
@@ -53,7 +55,9 @@ export const onPhaseChange = () => (
 export const getWeatherMetric = () => (
   dispatch => axios.get('https://api.openweathermap.org/data/2.5/weather?q=Tijuana,mx&units=metric&lang=es&APPID=e55ac5454485f43016d78b600a54208c')
     .then((response) => {
-      dispatch(setWeatherMetric(response.data));
+      const weather = getWeatherValues(response.data);
+      console.log(weather);
+      dispatch(setWeatherMetric(weather));
     })
     .catch((error) => {
       toast.error(error.message, { autoclose: 2000 });

@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 import Slider from '../../molecules/glide';
-import { getWeatherIcon } from '../../../helpers/helper-weather';
 
 const config = {
   perView: 3,
@@ -46,15 +45,14 @@ class Forecast extends Component {
     if (weatherMetric) {
       if (weatherMetric.main) {
         const {
-          weather,
-          main,
+          icon,
+          description,
           wind,
+          main,
         } = weatherMetric;
-        const { id, description, icon } = weather[0];
-        const icn = getWeatherIcon(id, icon.indexOf('n') > -1);
         const { temp, humidity } = main;
         return {
-          icon: icn,
+          icon,
           description,
           wind: wind.speed,
           temp,

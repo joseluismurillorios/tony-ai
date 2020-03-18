@@ -244,6 +244,10 @@ div.nonscrollable {
   font-size: 14px;
 }
 
+.text-white {
+  color: $light;
+}
+
 .text-big {
   font-size: 32px;
   span {
@@ -598,20 +602,6 @@ button.toast-close {
   }
 }
 
-.moon svg {
-	background-image: $moon;
-	background-position: center center;
-	background-size: 85%;
-	background-repeat: no-repeat;
-}
-
-.earth svg {
-	background-image: $earth;
-	background-position: center center;
-	background-size: 85%;
-	background-repeat: no-repeat;
-}
-
 .rounded {
   border-radius: 70px;
 }
@@ -620,7 +610,7 @@ button.toast-close {
   cursor: default;
 }
 
-#Dashboard {
+#Sidebar {
   position: absolute;
   top: 30px;
   bottom: 30px;

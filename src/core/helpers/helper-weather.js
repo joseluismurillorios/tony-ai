@@ -682,6 +682,25 @@ export const getForecastList = (data, forecastList = {}) => {
   return list;
 };
 
+export const getWeatherValues = (weatherMetric = {}) => {
+  if (weatherMetric.main) {
+    const {
+      weather,
+      main,
+      wind,
+    } = weatherMetric;
+    const { id, description, icon } = weather[0];
+    const icn = getWeatherIcon(id, icon.indexOf('n') > -1);
+    return {
+      icon: icn,
+      description,
+      wind,
+      main,
+    };
+  }
+  return ({});
+};
+
 export const getDOY = () => {
   const now = new Date();
   const start = new Date(now.getFullYear(), 0, 0);

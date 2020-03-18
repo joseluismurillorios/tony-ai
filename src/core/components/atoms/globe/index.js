@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import './style.scss';
+
 const Globe = ({
   size,
   phase,
@@ -25,7 +27,7 @@ const Globe = ({
   };
   return (
     <div role="button" tabIndex="0" className={type} onClick={onClick} onKeyPress={onKeyPress}>
-      <svg width={size} height={size} viewBox="0 0 120 120">
+      <svg className="phase-main" width={size} height={size} viewBox="0 0 120 120">
         <defs>
           <filter id={`blur-${id}`} x="-10%" width="120%" y="-10%" height="120%">
             <feGaussianBlur in="SourceGraphic" stdDeviation={3} />
@@ -64,15 +66,6 @@ const Globe = ({
           opacity="0.8"
           mask={`url(#moon-mask-${id})`}
         />
-        {/* <circle
-          cx="60"
-          cy="60"
-          r="50"
-          fill="#FFFFFF"
-          opacity="0.1"
-          clipPath={`url(#phase-path-${id})`}
-          filter={`url(#blur-${id})`}
-        /> */}
       </svg>
 
     </div>

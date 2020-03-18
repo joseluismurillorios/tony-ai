@@ -224,7 +224,7 @@ class Home extends Component {
           <Section className="pt-0 pb-0">
             <div className="container-fluid">
               <Row>
-                <div id="Dashboard">
+                <div id="Sidebar">
                   {
                     earthPhases && (
                       <div>

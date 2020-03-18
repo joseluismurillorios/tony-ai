@@ -1,0 +1,51 @@
+
+$moon: url('../../../assets/images/main/moon.png');
+$earth: url('../../../assets/images/main/earth.png');
+
+.moon {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	background-color: transparent;
+	svg.phase-main {
+		background-color: transparent;
+		background-image: $moon;
+		background-position: center center;
+		background-size: 84%;
+		background-repeat: no-repeat;
+		filter: drop-shadow(10px 10px 8px rgba(0,0,0,.2));
+	}
+	// circle {
+	// 	stroke-opacity: 1;
+  //   stroke: #ccc;
+  //   stroke-width: 0.5;
+	// }
+}
+
+.earth {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	background-color: transparent;
+	svg.phase-main {
+		background-color: transparent;
+		background-image: $earth;
+		background-position: center center;
+		background-size: 84%;
+		background-repeat: no-repeat;
+		filter: drop-shadow(10px 10px 8px rgba(0,0,0,.2));
+	}
+	// circle {
+  //   stroke-opacity: 1;
+  //   stroke: #6a84c1;
+  //   stroke-width: 0.5;
+	// }
+}
+
+.bg-dark {
+	.earth, .moon {
+		svg.phase-main {
+			filter: drop-shadow(6px 6px 28px rgba(255,255,255,.1));
+		}
+	}
+}
