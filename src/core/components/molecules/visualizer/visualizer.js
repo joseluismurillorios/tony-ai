@@ -14,8 +14,8 @@ import ImprovedNoise from './improvedNoise';
 
 const LoopVisualizer = (scene, analyser, mic) => {
   const RINGCOUNT = 20;
-  const GROWTH = 1.05;
-  const INIT_RADIUS = 90;
+  const GROWTH = 1.07;
+  const INIT_RADIUS = 80;
   const SEGMENTS = 512;
   const VOL_SENS = 3;
   const BIN_COUNT = 512;

@@ -6,6 +6,8 @@ import PropTypes from 'prop-types';
 import $ from '../../../helpers/helper-jquery';
 // import requestAnimationFrame from './requestAnimationFrame';
 
+import './style.scss';
+
 import loopVisualizer from './visualizer';
 
 class Visualizer extends Component {
@@ -23,6 +25,7 @@ class Visualizer extends Component {
     this.state = {
       isWebgl,
     };
+    const rect = 
 
     this.mouseX = 0;
     this.mouseY = 0;
@@ -57,12 +60,57 @@ class Visualizer extends Component {
       isWebgl,
     } = this.state;
     setRef(this);
+    const rect = this.container.getBoundingClientRect();
+    const max = Math.max(rect.width, rect.height);
+    this.windowHalfX = max / 2;
+    this.windowHalfY = max / 2;
     if (!isWebgl) {
       this.container.innerHTML = 'Your graphics card does not seem to support WebGL';
       return;
     }
 
     document.onselectStart = () => false;
+
+    document.addEventListener('drop', this.onDocumentDrop, false);
+    document.addEventListener('dragover', (evt) => {
+      evt.stopPropagation();
+      evt.preventDefault();
+      return false;
+    }, false);
+
+    this.onInit();
+  }
+
+  componentWillUnmount() {
+    document.removeEventListener('mousemove', this.onDocMouseMove, false);
+    window.removeEventListener('resize', this.onWindowResize, false);
+    document.removeEventListener('drop', this.onDocumentDrop, false);
+  }
+
+  onInit() {
+    const rect = this.container.getBoundingClientRect();
+    const max = Math.max(rect.width, rect.height);
+    this.windowHalfX = max / 2;
+    this.windowHalfY = max / 2;
+    // init 3D scene
+    // this.camera = new THREE.PerspectiveCamera(60, rect.width / rect.height, 1, 1000000);
+    this.camera = new THREE.PerspectiveCamera(60, 1, 1, 1000000);
+    this.camera.position.z = 300;
+    this.scene = new THREE.Scene();
+    this.scene.add(this.camera);
+    this.renderer = new THREE.WebGLRenderer({
+      antialias: true,
+      // sortObjects: false,
+      alpha: true,
+    });
+    this.renderer.setSize(max, max);
+    // this.renderer.setSize(rect.width, rect.height);
+    // this.renderer.setClearColor(new THREE.Color(0x0000FF));
+    this.renderer.setClearColor(new THREE.Color(0x000000), 0.0);
+
+    this.container.appendChild(this.renderer.domElement);
+
+    // stop the user getting a text cursor
 
     $(document).mouseleave(() => {
       tween({
@@ -82,55 +130,24 @@ class Visualizer extends Component {
 
     document.addEventListener('mousemove', this.onDocMouseMove, false);
     window.addEventListener('resize', this.onWindowResize, false);
-    document.addEventListener('drop', this.onDocumentDrop, false);
-    document.addEventListener('dragover', (evt) => {
-      evt.stopPropagation();
-      evt.preventDefault();
-      return false;
-    }, false);
-
-    this.onInit();
-  }
-
-  componentWillUnmount() {
-    document.removeEventListener('mousemove', this.onDocMouseMove, false);
-    window.removeEventListener('resize', this.onWindowResize, false);
-    document.removeEventListener('drop', this.onDocumentDrop, false);
-  }
-
-  onInit() {
-    const {
-      innerWidth,
-      innerHeight,
-    } = window;
-    // init 3D scene
-    this.camera = new THREE.PerspectiveCamera(60, innerWidth / innerHeight, 1, 1000000);
-    this.camera.position.z = 300;
-    this.scene = new THREE.Scene();
-    this.scene.add(this.camera);
-    this.renderer = new THREE.WebGLRenderer({
-      antialias: true,
-      // sortObjects: false,
-      alpha: true,
-    });
-    this.renderer.setSize(innerWidth, innerHeight);
-    // this.renderer.setClearColor(new THREE.Color(0x0000FF));
-    this.renderer.setClearColor(new THREE.Color(0x0000FF), 0.0);
-
-    this.container.appendChild(this.renderer.domElement);
-
-    // stop the user getting a text cursor
 
     this.onWindowResize(null);
     // this.initMic();
   }
 
   onWindowResize() {
-    this.windowHalfX = window.innerWidth / 2;
-    this.windowHalfY = window.innerHeight / 2;
-    this.camera.aspect = window.innerWidth / window.innerHeight;
+    const rect = this.container.getBoundingClientRect();
+    const max = Math.max(rect.width, rect.height);
+    this.windowHalfX = max / 2;
+    this.windowHalfY = max / 2;
+    this.camera.aspect = 1;
     this.camera.updateProjectionMatrix();
-    this.renderer.setSize(window.innerWidth, window.innerHeight);
+    this.renderer.setSize(max, max);
+    // this.windowHalfX = rect.width / 2;
+    // this.windowHalfY = rect.height / 2;
+    // this.camera.aspect = rect.width / rect.height;
+    // this.camera.updateProjectionMatrix();
+    // this.renderer.setSize(rect.width, rect.height);
   }
 
   onDocumentDrop(evt) {
@@ -282,8 +299,11 @@ class Visualizer extends Component {
   }
 
   render() {
+    const {
+      className,
+    } = this.props;
     return (
-      <div id="Visualizer" ref={(el) => { this.container = el; }} />
+      <div id="Visualizer" className={className} ref={(el) => { this.container = el; }} />
     );
   }
 }
@@ -292,12 +312,14 @@ Visualizer.defaultProps = {
   setRef: () => {},
   onStart: () => {},
   onEnd: () => {},
+  className: '',
 };
 
 Visualizer.propTypes = {
   setRef: PropTypes.func,
   onStart: PropTypes.func,
   onEnd: PropTypes.func,
+  className: PropTypes.string,
 };
 
 export default Visualizer;

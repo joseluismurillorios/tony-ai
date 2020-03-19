@@ -5,6 +5,7 @@ body {
   position: fixed;
   bottom: 1em;
   right: 1em;
+  z-index: 99;
 }
 .circular-wrapper {
   position: relative;
@@ -19,8 +20,8 @@ body {
   width: 3.5em;
   height: 3.5em;
   border-radius: 50%;
-  background-color: #65a8f1;
-  background: linear-gradient(to bottom right,#d7bbea,#65a8f1);
+  // background-color: #65a8f1;
+  // background: linear-gradient(to bottom right,#d7bbea,#65a8f1);
   box-shadow: 0 2px 5px 0 rgba(0,0,0,.26);
   color: #fff;
   align-items: center;
@@ -57,7 +58,9 @@ body {
   left: 50%;
   transform: translate(-50%, -50%);
   // background-color: hsl(4, 98%, 60%);
-  background: linear-gradient(to bottom right,#d7bbea,#65a8f1);
+  // background: linear-gradient(to bottom right,#d7bbea,#65a8f1);
+  background: #2c80fb;
+  background: linear-gradient(to bottom right, #3AAAF6, #2663FF);
   transition: all .3s ease;
 }
 

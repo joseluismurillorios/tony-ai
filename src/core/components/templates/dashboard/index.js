@@ -5,8 +5,6 @@ import { connect } from 'react-redux';
 import debounce from 'lodash/debounce';
 // import * as qs from 'query-string';
 
-import Scrollable from '../../atoms/scrollable';
-
 import { setLoader } from '../../../redux/actions/common';
 
 import { Speech, SpeechRec } from '../../../helpers/helper-speech';
@@ -194,11 +192,18 @@ class Dashboard extends Component {
         ref={(el) => { this.container = el; }}
         disabled
       >
-        <div id="DashboardPanel" className="dashboard">
+        {/* <Wave className="fill" /> */}
+        <div className="result-string">
+          {resultString}
+        </div>
+        <div className="voices hidden">
+          <Dropdown id="Voices" items={items} onChange={this.onVoices} value={selectedVoice} />
+        </div>
+        <div id="DashboardPanel" className="dashboard style-2">
           <div className="dashboard-left">
             <div className="dashboard-top">
               <div className="dashboard-item">
-                <div className="dashboard-inner">
+                <div className="dashboard-inner bg-gradient-02">
                   <div className="text-back">
                     <Clock noseconds format="A" />
                   </div>
@@ -207,34 +212,17 @@ class Dashboard extends Component {
                   </div>
                 </div>
               </div>
-            </div>
-            <div className="dashboard-bottom">
               <div className="dashboard-item">
                 <div className="dashboard-inner">
                   <div className="text-back">
-                    <span>C</span>
+                    <span>20</span>
+                    <br/>
+                    <Clock noseconds format="YY" />
                   </div>
-                  <div className="text-front">
-                    <span>
-                      {temp}
-                      °
-                    </span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className="dashboard-right">
-            <div className="dashboard-top">
-              <div className="dashboard-item">
-                <div className="dashboard-inner">
-                  <div className="text-back">
-                    <span><i className={icon} /></span>
-                  </div>
-                  <div className="text-front">
-                    <span className="capitalize">
-                      {description}
-                    </span>
+                  <div className="text-front dashboard-text capitalize">
+                    <Clock noseconds format="dddd" />
+                    <br/>
+                    <Clock noseconds format="DD [de] MMMM" />
                   </div>
                 </div>
               </div>
@@ -254,7 +242,7 @@ class Dashboard extends Component {
                         />
                       </Wow>
                     </div>
-                    <div className="text-front text-white dashboard-text">
+                    <div className="text-front text-white dashboard-text capitalize">
                       {moonPhaseName}
                     </div>
                   </div>
@@ -274,7 +262,7 @@ class Dashboard extends Component {
                         />
                       </Wow>
                     </div>
-                    <div className="text-front text-white dashboard-text">
+                    <div className="text-front text-white dashboard-text capitalize">
                       {earthPhaseName}
                     </div>
                   </div>
@@ -282,53 +270,78 @@ class Dashboard extends Component {
               </div>
             </div>
           </div>
+          <div className="dashboard-right">
+            <div className="dashboard-top">
+              <div className="dashboard-item">
+                <div className="dashboard-inner bg-gradient-02">
+                  <div className="text-back">
+                    <span>C</span>
+                  </div>
+                  <div className="text-front">
+                    <span>
+                      {temp}
+                      °
+                    </span>
+                  </div>
+                </div>
+              </div>
+              <div className="dashboard-item">
+                <div className="dashboard-inner">
+                  <div className="text-back">
+                    <span><i className={icon} /></span>
+                  </div>
+                  <div className="text-front dashboard-text capitalize">
+                    <span className="capitalize">
+                      {description}
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="dashboard-bottom">
+              <div className="dashboard-item">
+                <div className="dashboard-inner bg-dark">
+                  <Visualizer
+                    setRef={(el) => { this.visualizer = el; }}
+                    onStart={() => {
+                      this.setState({
+                        visual: true,
+                      });
+                    }}
+                    onEnd={() => {
+                      this.setState({
+                        visual: false,
+                      });
+                    }}
+                  />
+                  <div className="text-front dashboard-text">
+                    {!visual && 'Arrastre y suelte un archivo .mp3'}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
-        <Scrollable
-          className="fs-home open"
-          id="MainScroll"
-          style={{ backgroundColor: 'transparent' }}
-          disabled
-        // toTop
-        >
-          {/* <Wave className="fill" /> */}
-          <Visualizer
-            setRef={(el) => { this.visualizer = el; }}
-            onStart={() => {
-              this.setState({
-                visual: true,
-              });
-            }}
-            onEnd={() => {
-              this.setState({
-                visual: false,
-              });
-            }}
-          />
-          <div className="result-string">
-            {resultString}
-          </div>
-          <div className="voices hidden">
-            <Dropdown id="Voices" items={items} onChange={this.onVoices} value={selectedVoice} />
-          </div>
-          <CircularMenu
-            opened={menuOpened}
-            visual={visual}
-            onVisualToggle={() => {
-              if (this.visualizer) {
-                if (this.visualizer.started) {
-                  this.visualizer.stop();
-                } else {
-                  this.visualizer.initMic();
-                }
+
+        <CircularMenu
+          className="bg-gradient-02"
+          opened={menuOpened}
+          visual={visual}
+          onVisualToggle={() => {
+            if (this.visualizer) {
+              if (this.visualizer.started) {
+                this.visualizer.stop();
+              } else {
+                this.visualizer.initMic();
               }
-            }}
-            onToggleOpened={() => {
-              this.setState({
-                menuOpened: !menuOpened,
-              });
-            }}
-          />
-        </Scrollable>
+            }
+          }}
+          onToggleOpened={() => {
+            this.setState({
+              menuOpened: !menuOpened,
+            });
+          }}
+        />
       </div>
     );
   }

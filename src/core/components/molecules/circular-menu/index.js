@@ -15,6 +15,7 @@ import PropTypes from 'prop-types';
 import './style.scss';
 
 const CircularMenu = ({
+  className,
   opened,
   mic,
   visual,
@@ -26,7 +27,7 @@ const CircularMenu = ({
 }) => (
   <div className={`circular-menu ${opened ? 'active' : ''}`}>
     <div className="circular-wrapper">
-      <button type="button" className="floating-btn" onClick={onToggleOpened}>
+      <button type="button" className={`floating-btn ${className}`} onClick={onToggleOpened}>
         <Settings />
       </button>
       <menu className="items-wrapper">
@@ -80,6 +81,7 @@ const CircularMenu = ({
 );
 
 CircularMenu.defaultProps = {
+  className: '',
   opened: false,
   mic: false,
   visual: false,
@@ -91,6 +93,7 @@ CircularMenu.defaultProps = {
 };
 
 CircularMenu.propTypes = {
+  className: PropTypes.string,
   opened: PropTypes.bool,
   mic: PropTypes.bool,
   visual: PropTypes.bool,

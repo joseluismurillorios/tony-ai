@@ -250,11 +250,23 @@ $color_two: #61CABC;
 $color_three: #95DBD2;
 $color_four: #A18CD1;
 
+
+// $color_four: #D7BBEA;
+// $color_one: #65A8F1;
+$color_four: #3AAAF6;
+$color_one: #2663FF;
+
 .bg-gradient {
 	background: linear-gradient(-45deg, $color_one, $color_four);
 }
 
 .bg-gradient-02 {
+  background: #2c80fb;
+  background: linear-gradient(to bottom right, #3AAAF6, #2663FF);
+}
+
+.bg-gradient-03 {
+  background: #65A8F1;
   background: linear-gradient(to bottom right, #D7BBEA, #65A8F1);
 }
 

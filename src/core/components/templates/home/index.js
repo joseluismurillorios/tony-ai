@@ -63,6 +63,7 @@ class Home extends Component {
     this.onEnd = this.onEnd.bind(this);
     this.onStart = this.onStart.bind(this);
     this.onHashChanged = this.onHashChanged.bind(this);
+    this.stopVisualizer = this.stopVisualizer.bind(this);
 
     this.started = false;
   }
@@ -93,6 +94,7 @@ class Home extends Component {
 
   componentWillUnmount() {
     window.removeEventListener('hashchange', this.onHashChanged);
+    this.stopVisualizer();
   }
 
   onLoad() {
@@ -164,6 +166,16 @@ class Home extends Component {
     setTimeout(() => { this.speechRec.start(true, true); }, 500);
   }
 
+  stopVisualizer() {
+    if (this.visualizer) {
+      if (this.visualizer.started) {
+        this.visualizer.stop();
+      } else {
+        this.visualizer.initMic();
+      }
+    }
+  }
+
   render() {
     const { forecast } = this.props;
     const {
@@ -206,6 +218,7 @@ class Home extends Component {
         >
           {/* <Wave className="fill" /> */}
           <Visualizer
+            className="fixed"
             setRef={(el) => { this.visualizer = el; }}
             onStart={() => {
               this.setState({
@@ -290,17 +303,10 @@ class Home extends Component {
             <Dropdown id="Voices" items={items} onChange={this.onVoices} value={selectedVoice} />
           </div>
           <CircularMenu
+            className="bg-gradient-02"
             opened={menuOpened}
             visual={visual}
-            onVisualToggle={() => {
-              if (this.visualizer) {
-                if (this.visualizer.started) {
-                  this.visualizer.stop();
-                } else {
-                  this.visualizer.initMic();
-                }
-              }
-            }}
+            onVisualToggle={this.stopVisualizer}
             onToggleOpened={() => {
               this.setState({
                 menuOpened: !menuOpened,
