@@ -11,6 +11,13 @@ const phases = getSunTimes();
 
 const defaultState = {
   forecastList: {},
+  weatherMetric: {
+    icon: 'wef-day-sunny',
+    main: {
+      temp: 'N/A',
+    },
+    description: 'N/A',
+  },
   curTime: (new Date()).getTime(),
   ...phases,
 };

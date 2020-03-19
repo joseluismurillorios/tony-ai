@@ -216,12 +216,12 @@ class Dashboard extends Component {
                 <div className="dashboard-inner">
                   <div className="text-back">
                     <span>20</span>
-                    <br/>
+                    <br />
                     <Clock noseconds format="YY" />
                   </div>
                   <div className="text-front dashboard-text capitalize">
                     <Clock noseconds format="dddd" />
-                    <br/>
+                    <br />
                     <Clock noseconds format="DD [de] MMMM" />
                   </div>
                 </div>
@@ -237,7 +237,7 @@ class Dashboard extends Component {
                           id="MoonMain"
                           type="moon"
                           phase={moonCurrent}
-                          size="168px"
+                          size="60%"
                           // onClick={onClick}
                         />
                       </Wow>
@@ -257,7 +257,7 @@ class Dashboard extends Component {
                           id="EarthMain"
                           type="earth"
                           phase={earthCurrent}
-                          size="168px"
+                          size="60%"
                           // onClick={onClick}
                         />
                       </Wow>
