@@ -27,7 +27,7 @@
   "dependencies": {
     "@babel/runtime": "^7.8.7",
     "@glidejs/glide": "^3.4.1",
-    "axios": "^0.18.0",
+    "axios": "^0.21.1",
     "bluebird": "^3.5.3",
     "cookie-parser": "^1.4.4",
     "css-element-queries": "^1.1.1",
