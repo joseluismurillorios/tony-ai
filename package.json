@@ -38,7 +38,7 @@
     "firebase": "5.2.0",
     "firebase-admin": "^7.0.0",
     "geofirex": "0.0.6",
-    "gsap": "1.19.0",
+    "gsap": "3.6.0",
     "history": "^4.7.2",
     "jquery": "^3.3.1",
     "js-cookie": "^2.2.0",
